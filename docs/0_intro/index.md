@@ -1,8 +1,9 @@
 +++
-date = '2025-08-12T16:56:00+03:30'
+date = '2025-08-12T11:49:00+03:30'
 draft = false
 title = 'Introduction'
-description = "Introduction to Pytroch"
+description = "Introduction to PyTorch"
+weight = 10
 +++
 
 # Introduction
@@ -20,3 +21,4 @@ specially among researchers.
 ## Deep learning structure
 
 ## How PyTorch sees Deep Learning 
+
