@@ -9,6 +9,8 @@ description = "A tutorial about Pytorch"
 
 ## introduction
 
+To understand `Pytorch` we should first understand `deep leanring`.
+
 ## Goal
 
 ## Table of content
