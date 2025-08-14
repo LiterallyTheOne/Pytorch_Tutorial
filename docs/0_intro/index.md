@@ -25,7 +25,7 @@ Then, in the future, we will complete this **hello world** example step by step.
 Imagine that we have `3` samples of data.
 Each sample has `8` features.
 We want to classify this data into `4` classes.
-So, the shape of our data would be `[3, 8]` and the shape of our result should be `[3, 5]`.
+So, the shape of our data would be `[3, 8]` and the shape of our result should be `[3, 4]`.
 Now, our plan is to just make a model that we can feed our data to.
 The simplest way to do that is to have a **fully connected layer**, with the input size of `8`
 and the output size of `4`, like the image below:
