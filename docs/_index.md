@@ -7,11 +7,12 @@ description = "A tutorial about Pytorch"
 
 # Pytorch Tutorial
 
-## introduction
 
-To understand `Pytorch` we should first understand `deep leanring`.
+In this tutorial we are trying to explain the fundamental of `PyTorch`
+to help you understand the concepts better.
+We start with a simple project and gradually complete it throughout
+the tutorial.
 
-## Goal
 
 ## Table of content
 
