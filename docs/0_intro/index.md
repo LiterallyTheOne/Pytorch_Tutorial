@@ -18,6 +18,9 @@ especially among researchers.
 So, let's write a **hello world** to understand **PyTorch** better.
 Then, in the future, we will complete this **hello world** example step by step.
 
+Code of this tutorial is available at:
+[link to code](https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/0_hello_world.ipynb)
+
 ## Hello world
 
 ### Problem definition
@@ -102,7 +105,5 @@ our code step by step.
 You must have so many questions right now, but don't worry, they
 will be answered soon.
 
-Code of this tutorial is available at:
-[link to code](https://github.com/LiterallyTheOne/Pytorch_Tutorial/main/src/0_hello_world.ipynb)
 
 
