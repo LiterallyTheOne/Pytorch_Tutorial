@@ -43,11 +43,14 @@ data = [
 t1 = torch.tensor(data)
 print(t1)
 
-# --------
-# output: 
-# tensor([[1, 2, 3],
-#         [4, 5, 6],
-#         [7, 8, 9]])
+"""
+--------
+output: 
+
+tensor([[1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9]])
+"""
 ```
 
 As you can see, we had a 2-dimensional matrix, and we gave it to `torch.tensor` as an argument and stored the result
@@ -64,12 +67,15 @@ s1 = torch.rand((3, 8))
 print(s1)
 print(s1.shape)
 
-# --------
-# output: 
-# tensor([[0.6667, 0.7057, 0.7670, 0.7719, 0.7298, 0.5729, 0.8281, 0.5963],
-#         [0.1056, 0.5377, 0.3380, 0.4923, 0.0246, 0.8192, 0.3945, 0.1150],
-#         [0.3885, 0.4211, 0.2655, 0.6766, 0.5082, 0.6465, 0.9499, 0.2008]])
-# torch.Size([3, 8])
+"""
+--------
+output: 
+
+tensor([[0.6667, 0.7057, 0.7670, 0.7719, 0.7298, 0.5729, 0.8281, 0.5963],
+        [0.1056, 0.5377, 0.3380, 0.4923, 0.0246, 0.8192, 0.3945, 0.1150],
+        [0.3885, 0.4211, 0.2655, 0.6766, 0.5082, 0.6465, 0.9499, 0.2008]])
+torch.Size([3, 8])
+"""
 ```
 
 ```python
@@ -77,12 +83,15 @@ s2 = torch.zeros((3, 8))
 print(s2)
 print(s2.shape)
 
-# --------
-# output: 
-# tensor([[0., 0., 0., 0., 0., 0., 0., 0.],
-#         [0., 0., 0., 0., 0., 0., 0., 0.],
-#         [0., 0., 0., 0., 0., 0., 0., 0.]])
-# torch.Size([3, 8])
+"""
+--------
+output: 
+
+tensor([[0., 0., 0., 0., 0., 0., 0., 0.],
+        [0., 0., 0., 0., 0., 0., 0., 0.],
+        [0., 0., 0., 0., 0., 0., 0., 0.]])
+torch.Size([3, 8])
+"""
 ```
 
 ```python
@@ -90,12 +99,15 @@ s3 = torch.ones((3, 8))
 print(s3)
 print(s3.shape)
 
-# --------
-# output: 
-# tensor([[1., 1., 1., 1., 1., 1., 1., 1.],
-#         [1., 1., 1., 1., 1., 1., 1., 1.],
-#         [1., 1., 1., 1., 1., 1., 1., 1.]])
-# torch.Size([3, 8])
+"""
+--------
+output: 
+
+tensor([[1., 1., 1., 1., 1., 1., 1., 1.],
+        [1., 1., 1., 1., 1., 1., 1., 1.],
+        [1., 1., 1., 1., 1., 1., 1., 1.]])
+torch.Size([3, 8])
+"""
 ```
 
 In the above examples, we have used 3 functions:
@@ -114,12 +126,14 @@ l1 = torch.zeros_like(t1)
 print(l1)
 print(l1.shape)
 
-# --------
-# output: 
-# tensor([[0, 0, 0],
-#         [0, 0, 0],
-#         [0, 0, 0]])
-# torch.Size([3, 3])
+"""
+--------
+output: 
+tensor([[0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0]])
+torch.Size([3, 3])
+"""
 ```
 
 The first `Tensor` that we created was called `t1` and its shape was `[3, 3]`.
@@ -140,11 +154,14 @@ print(f"shape: {t1.shape}")
 print(f"dtype: {t1.dtype}")
 print(f"device: {t1.device}")
 
-# --------
-# output: 
-# shape: torch.Size([3, 3])
-# dtype: torch.int64
-# device: cpu
+"""
+--------
+output: 
+
+shape: torch.Size([3, 3])
+dtype: torch.int64
+device: cpu
+"""
 ```
 
 ## Control the device
@@ -159,9 +176,12 @@ else:
 
 print(device)
 
-# --------
-# output: 
-# mps
+"""
+--------
+output: 
+
+mps
+"""
 ```
 
 The code above first checks if there are any accelerators like `cuda` or `mps` (for MacBook).
@@ -177,10 +197,95 @@ For example:
 t1 = t1.to(device)
 print(t1.device)
 
-# --------
-# output: 
-# mps:0
+"""
+--------
+output: 
+
+mps:0
+"""
 ```
 
 In the code above, we changed the device of the `Tensor` called `t1` to the current accelerator, which in
 my case is `mps`.
+
+## Operations on Tensor
+
+The syntax of `Tensor` operations is pretty much like the `Numpy Arrays`.
+As you recall, we had a `Tensor` called `t1` that we cast it to run on `gpu`.
+`t1` was a 2D matrix with the shape of `[3, 3]` and the content of it was like below:
+
+```python
+"""
+tensor([[1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9]], device='mps:0')
+"""
+```
+
+If we want to only select the first row of it, we can use the code below:
+
+```python
+t1_first_row = t1[0]
+print(t1_first_row)
+
+"""
+--------
+output: 
+
+tensor([1, 2, 3], device='mps:0')
+"""
+```
+
+If we want to select its first column, we can use the code below:
+
+```python
+t1_first_column = t1[:, 0]
+print(t1_first_column)
+
+"""
+--------
+output: 
+
+tensor([1, 4, 7], device='mps:0')
+"""
+```
+
+If we want to select a slice of that tensor, for example, the second row till the end, and the second column till the
+end, the code below would be useful:
+
+```python
+t1_slice = t1[1:, 1:]
+print(t1_slice)
+
+"""
+--------
+output: 
+
+tensor([[5, 6],
+        [8, 9]], device='mps:0')
+"""
+```
+
+We can join (concatenate) two tensors using `torch.cat`.
+For example, let's make two 2D tensors and concatenate them.
+
+```python
+c1 = torch.zeros((5, 4))
+c2 = torch.ones((5, 2))
+
+c3 = torch.concat((c1, c2), dim=1)
+print(c3)
+
+"""
+--------
+output: 
+ 
+tensor([[0., 0., 0., 0., 1., 1.],
+        [0., 0., 0., 0., 1., 1.],
+        [0., 0., 0., 0., 1., 1.],
+        [0., 0., 0., 0., 1., 1.],
+        [0., 0., 0., 0., 1., 1.]])
+"""
+```
+
+
