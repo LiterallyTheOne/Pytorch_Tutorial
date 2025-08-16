@@ -7,12 +7,15 @@ description = "A tutorial about Pytorch"
 
 # Pytorch Tutorial
 
-
 In this tutorial we are trying to explain the fundamental of `PyTorch`
 to help you understand the concepts better.
 We start with a simple project and gradually complete it throughout
 the tutorial.
 
+`PyTorch` site, itself has a great tutorial and this tutorial
+is influenced on their tutorial.
+Link to the tutorial:
+[PyTorch Official Tutorial](https://docs.pytorch.org/tutorials/beginner/basics/intro.html)
 
 ## Table of content
 
