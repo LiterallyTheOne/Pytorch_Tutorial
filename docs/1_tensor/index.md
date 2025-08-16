@@ -288,4 +288,124 @@ tensor([[0., 0., 0., 0., 1., 1.],
 """
 ```
 
+We can transpose a tensor, using `.T`.
+
+```python
+a1 = torch.tensor([
+    [1, 2, 3],
+    [4, 5, 6],
+])
+a1t = a1.T
+
+print(a1)
+print(a1t)
+
+"""
+--------
+output: 
+
+tensor([[1, 2, 3],
+        [4, 5, 6]])
+tensor([[1, 4],
+        [2, 5],
+        [3, 6]])
+
+""" 
+```
+
+We can do arithmetic operations on `Tensors` as well.
+For example, let's create 2 matrices and multiply them.
+
+```python
+matrix_1 = torch.Tensor([
+    [1.0, 2.0, 3.0],
+    [4.0, 5.0, 6.0],
+])
+
+matrix_2 = torch.tensor([
+    [1.0],
+    [2.0],
+    [3.0],
+])
+
+result = matrix_1 @ matrix_2
+print(result)
+
+"""
+--------
+output: 
+
+tensor([[14.],
+        [32.]])
+""" 
+```
+
+As you can see, `1x1+2x2+3x3=1+4+9=14` and `4x1+5x2+6x3=4+10+18=32`.
+
+Also, we can calculate the sum of a matrix using `.sum`.
+
+```python
+sum_matrix_1 = matrix_1.sum()
+print(sum_matrix_1)
+
+"""
+--------
+output: 
+
+tensor(21.)
+""" 
+```
+
+In the `hello world` example, we used `argmax`.
+Now, let's use the `max` function, which calculates the maximum and the index of the maximum as well.
+
+```python
+b1 = torch.tensor([
+    [3, 1, 7, 2],
+    [2, 4, 1, 3],
+    [9, 1, 2, 5],
+])
+
+max_of_each_row = b1.max(dim=1)
+
+print(max_of_each_row)
+
+"""
+--------
+output: 
+
+torch.return_types.max(
+values=tensor([7, 4, 9]),
+indices=tensor([2, 1, 0]))
+"""
+```
+
+As you can see, in the code above, the maximum number in the first row is `7`, and it is in the index of the `2`
+(we start with `0`) and so on.
+
+Now, let's use the `argmax` function and compare the results.
+
+```python
+argmax_of_each_row = b1.argmax(dim=1)
+
+print(argmax_of_each_row)
+
+"""
+--------
+output: 
+
+tensor([2, 1, 0])
+""" 
+```
+
+As you can see, the indices of both results are the same.
+
+## Conclusion
+
+In this tutorial, we learned more about `Tensor`, which is the core concept of `PyTorch`.
+We learned how to create them, what their most important attributes are, how to control the device, also
+how to perform an operation on them.
+There are so many things that you can do with tensors, and these were only some of them to show the concept
+of a `Tensor`.
+
 
