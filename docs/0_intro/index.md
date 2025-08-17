@@ -33,7 +33,7 @@ Now, our plan is to just make a model that we can feed our data to.
 The simplest way to do that is to have a **fully connected layer**, with the input size of `8`
 and the output size of `4`, like the image below:
 
-![pytorch_hello_world](pytorch-hello-world.webp)
+![pytorch_hello_world](model-8-4.webp)
 
 ### Implementation
 
