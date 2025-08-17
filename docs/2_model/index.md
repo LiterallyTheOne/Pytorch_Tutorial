@@ -240,6 +240,54 @@ tensor([[-0.2815,  0.2154,  0.0795, -0.0977],
 
 As you can see it works as it should be.
 
+## Run on Accelerator
+
+To run our model on the available accelerator, we should first find it.
+To do so, we can use the code below:
+
+```python
+if torch.accelerator.is_available():
+    device = torch.accelerator.current_accelerator()
+else:
+    device = "cpu"
+
+print(device)
+
+"""
+--------
+output: 
+
+mps
+"""
+```
+
+For me, the available accelerator was `mps`.
+Now, we should cast both the **data** and the **model** to the device that we have.
+To make the code more clean, I have created them again.
+
+```python
+data = torch.rand((3, 8))
+my_model_2 = MyModel2()
+
+data = data.to(device)
+my_model_2 = my_model_2.to(device)
+
+result = my_model_2(data)
+
+print(result)
+
+"""
+--------
+output: 
+tensor([[ 0.1318,  0.0968, -0.0257, -0.3693],
+        [ 0.0812,  0.0943, -0.0765, -0.4375],
+        [ 0.1081,  0.0463, -0.0657, -0.4549]], device='mps:0',
+       grad_fn=<LinearBackward0>)
+"""
+```
+
+As you can see, now I ran our model on our available accelerator and the output's device is the available accelerator.
+
 ## Conclusion
 
 In this tutorial we have learned how to define a model.
