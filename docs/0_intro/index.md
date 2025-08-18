@@ -21,7 +21,7 @@ So, let's write a **hello world** to understand **PyTorch** better.
 Then, in the future, we will complete this **hello world** example step by step.
 
 Code of this tutorial is available at:
-[link to code](https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/0_hello_world.ipynb)
+[link to the code](https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/0_hello_world.ipynb)
 
 ## Hello world
 

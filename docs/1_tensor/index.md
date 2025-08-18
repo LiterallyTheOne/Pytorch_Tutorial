@@ -29,7 +29,7 @@ In this tutorial, we are going to explain more about the main operations
 in `Tensor` and learn how to use them.
 
 Code of this tutorial is available at:
-[link to code](https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/1_tensor.ipynb)
+[link to the code](https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/1_tensor.ipynb)
 
 ## Create a Tensor
 

@@ -26,6 +26,10 @@ model = nn.Linear(8, 4)  # (features, number_of_classes)
 
 Now, let's make the model a little bit more complex.
 
+Code of this tutorial is available at:
+[link to the code](https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/2_model.ipynb)
+
+
 ## Sequential Model
 
 One of the ways that we can stack up some layers in **PyTorch** is by using
