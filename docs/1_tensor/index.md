@@ -5,6 +5,7 @@ title = 'Tensor'
 description = "Tensor in Pytorch"
 weight = 20
 tags = ["PyTorch", "Deep-Learning", "Python"]
+image = "tensor.webp"
 +++
 
 # Tensor
