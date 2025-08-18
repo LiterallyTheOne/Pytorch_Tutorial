@@ -4,6 +4,7 @@ draft = false
 title = 'Data'
 description = "Data in Pytorch"
 weight = 40
+tags = ["PyTorch", "Deep-Learning", "Python"]
 +++
 
 # Data

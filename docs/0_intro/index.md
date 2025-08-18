@@ -4,6 +4,7 @@ draft = false
 title = 'Introduction'
 description = "Introduction to PyTorch"
 weight = 10
+tags = ["PyTorch", "Deep-Learning", "Python"]
 +++
 
 # Introduction
