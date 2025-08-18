@@ -4,6 +4,7 @@ draft = false
 title = 'Pytorch'
 description = "A tutorial about Pytorch"
 tags = ["PyTorch", "Deep-Learning", "Python"]
+image = "pytorch-tutorial.webp"
 +++
 
 # Pytorch Tutorial
@@ -17,7 +18,3 @@ the tutorial.
 is influenced on their tutorial.
 Link to the tutorial:
 [PyTorch Official Tutorial](https://docs.pytorch.org/tutorials/beginner/basics/intro.html)
-
-## Table of content
-
-{{< table-of-content >}}
