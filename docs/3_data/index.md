@@ -248,4 +248,200 @@ are to the true labels. (`.item` function returns the value of a single tensor)
 As you can see, all the prediction classes are `0`.
 The reason behind that is that we haven't trained our model yet.
 
+## Dataset
 
+The standard way of creating a **dataset** in **PyTorch** is by using
+`torch.utils.data.Dataset`.
+In this way, data is more manageable and can be dealt with in so many different ways.
+Let's make a `Dataset` class for our `IRIS` dataset.
+
+```python
+
+from torch.utils.data import Dataset
+
+
+class IRISDataset(Dataset):
+    def __init__(self, data, target):
+        super().__init__()
+        self.data = data
+        self.target = target
+
+    def __len__(self):
+        return len(self.data)
+
+    def __getitem__(self, idx):
+        return self.data[idx], self.target[idx]
+```
+
+In the code above, we have a class that is an abstract of `Dataset`, called `IRISDataset`.
+As you can see, we gave `data` and `target` as arguments to this class.
+When we implement a `Dataset` in **PyTorch**, we have to implement `__len__` and `__getitem__` as well.
+The function `__len__` returns the size of our data (`len(self.data)`).
+Also, the function `__getitem__` returns each data and target with the given index.
+This function is used when we want to iterate over our dataset.
+Let's create an instance of our `IRISDataset`.
+
+```python
+iris_dataset = IRISDataset(data, target)
+```
+
+Now, if we want to iterate over our dataset, we can use a simple for.
+For example, in the code below, we iterate over our dataset and `break` the loop
+after `one` element.
+
+```python
+for one_data, one_target in iris_dataset:
+    print(one_data)
+    print(one_target)
+    break
+
+"""
+--------
+output: 
+
+tensor([5.1000, 3.5000, 1.4000, 0.2000])
+tensor(0.)
+"""
+```
+
+## DataLoader
+
+In **PyTorch**, we have a class called `DataLoader`.
+This class is super useful when you want to train your model.
+It gives you so many options that you can control pretty easily.
+Let's create a `DataLoader` for our `iris_dataset`.
+
+```python
+from torch.utils.data import DataLoader
+
+iris_loader = DataLoader(iris_dataset, batch_size=10, shuffle=True)
+```
+
+In the code above, we created an instance of `DataLoader` and stored it in `iris_loader`.
+We set the `batch_size` to `10`.
+This means in each iteration, our `Dataloader`, returns `10` samples of data.
+Also, we set `suffle` to true.
+This argument shuffles the order of data every time, which is super useful in training.
+Now, let's make a loop that iterates over `iris_loader`, and shows only the first element.
+
+```python
+for batch_of_data, batch_of_target in iris_loader:
+    print(batch_of_data)
+    print(batch_of_target)
+    break
+
+"""
+--------
+output: 
+
+tensor([[6.4000, 2.9000, 4.3000, 1.3000],
+        [6.4000, 3.1000, 5.5000, 1.8000],
+        [7.7000, 2.6000, 6.9000, 2.3000],
+        [4.8000, 3.4000, 1.9000, 0.2000],
+        [4.6000, 3.2000, 1.4000, 0.2000],
+        [6.7000, 3.1000, 4.4000, 1.4000],
+        [6.2000, 2.8000, 4.8000, 1.8000],
+        [6.1000, 3.0000, 4.6000, 1.4000],
+        [5.7000, 2.8000, 4.1000, 1.3000],
+        [5.4000, 3.9000, 1.3000, 0.4000]])
+tensor([1., 2., 2., 0., 0., 1., 2., 1., 1., 0.])
+"""
+```
+
+As you can see, there are 10 samples of `data` with their `target`.
+If you run this loop multiple times, you will get different output every time.
+The reason behind that is that we set the `suffle` to `True` in our data loader.
+
+## Train, Validation, and Test data
+
+When we want to train our model, it is recommended to have 3 sets of data:
+
+* **Train**: The data that the model is trained on
+* **Validation**: The data that the model doesn't train on, and it is being used to evaluate the model after each
+  `epoch`
+* **Test**: The completely unseen data to evaluate our model after the training is over.
+
+There are so many different ways that we can split our data.
+One of the ways is using `random_split` in `pytorch.utils.data`.
+To do so, we can use the code below:
+
+```python
+from torch.utils.data import random_split
+
+g1 = torch.Generator().manual_seed(20)
+train_data, val_data, test_data = random_split(iris_dataset, [0.7, 0.2, 0.1], g1)
+```
+
+In the code above, at first, we create a `seed`.
+This `seed`, makes sure that every time we use our code, we get the same `train`, `validation`, and `test` subsets
+of our data.
+Then we split our data using `random_split`.
+As you can see, `70%` of the data goes for `training`, `20%` goes for `validation`, and `10%` goes for `testing`.
+Now, let's print the size of each subset to see if it works correctly.
+
+```python
+print("train_data length:", len(train_data))
+print("val_data length:", len(val_data))
+print("test_data length:", len(test_data))
+
+"""
+--------
+output: 
+train_data length: 105
+val_data length: 30
+test_data length: 15
+"""
+```
+
+As you can see, the data lengths are correct.
+Now, let's create a `DataLoader` for each of them.
+
+```python
+train_loader = DataLoader(train_data, batch_size=10, shuffle=True)
+val_loader = DataLoader(val_data, batch_size=10, shuffle=False)
+test_loader = DataLoader(test_data, batch_size=10, shuffle=False)
+```
+
+As you can see, now we have 3 dataloaders for each subset.
+Let's write a for loop to feed our training data to our model.
+
+```python
+for batch_of_data, batch_of_target in train_loader:
+    logits = iris_classifier(batch_of_data)
+
+    predictions = logits.argmax(dim=1)
+    for prediction, true_label in zip(predictions, batch_of_target):
+        print(prediction.item(), true_label.item())
+    break
+
+"""
+--------
+output: 
+
+1 1.0
+1 2.0
+0 0.0
+1 1.0
+0 0.0
+1 1.0
+1 1.0
+0 0.0
+1 2.0
+1 2.0
+"""
+```
+
+In the code above, we have a for loop that iterates over the `train_loader`.
+We feed each `batch_of_data` to our model to give us the `logits`.
+Then, we compare our predictions with the true labels.
+We put a `break` at the end of the for loop, to only show the first result.
+Now, we have everything to train our model.
+
+## Conclusion
+
+In this tutorial, we have learned how to control data in **PyTorch**.
+We downloaded a traditional dataset.
+Then, we load that dataset as a `PyTorch Dataset`.
+After that, we created a `DataLoader` for that `Dataset`.
+Finally, we split our dataset into `train`, `validation`, and `test`.
+Now, we are ready to train our model.
