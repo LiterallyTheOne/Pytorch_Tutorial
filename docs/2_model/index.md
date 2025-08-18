@@ -8,7 +8,7 @@ weight = 30
 
 # Model
 
-# What is model
+## What is model
 
 Model in PyTorch can be seen as a function that maps `inputs` to `outputs`.
 It consists of different layers, each of which has its own requirements.
@@ -24,7 +24,7 @@ model = nn.Linear(8, 4)  # (features, number_of_classes)
 
 Now, let's make the model a little bit more complex.
 
-# Sequential Model
+## Sequential Model
 
 One of the ways that we can stack up some layers in **PyTorch** is by using
 `nn.Sequential`.

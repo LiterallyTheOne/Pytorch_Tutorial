@@ -8,7 +8,7 @@ weight = 40
 
 # Data
 
-# Load a dataset
+## Load a dataset
 
 We can work with all kinds of data in **Pytorch**.
 For this example, we are going to work with the data called
