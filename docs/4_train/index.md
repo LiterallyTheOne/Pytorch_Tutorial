@@ -219,6 +219,8 @@ When we want to create an instance of an `optimizer`, we should give it the tens
 Let's define a simple model and make an `optimizer`.
 
 ```python
+from torch.optim import Adam
+
 model = nn.Linear(4, 2)
 
 optimizer = Adam(model.parameters())
@@ -283,7 +285,7 @@ First, let's load our data with the code below:
 iris = load_iris()
 
 data = torch.tensor(iris.data).to(torch.float)
-target = torch.tensor(iris.target).to(torch.float)
+target = torch.tensor(iris.target)
 ```
 
 Now, let's make a `Dataset` for our data.
@@ -337,6 +339,54 @@ iris_classifier = IRISClassifier()
 ```
 
 Now, we are ready to start learning how to train our model.
+
+## Train the model
+
+Right now, we know how to train our model in `PyTorch`.
+So, let's write an optimization step for our model.
+First, we need to define `loss function` and `optimizer`.
+
+```python
+loss_fn = nn.CrossEntropyLoss()
+optimizer = Adam(iris_classifier.parameters())
+```
+
+Now, let's write our training loop.
+
+```python
+for batch_of_data, batch_of_target in train_loader:
+    optimizer.zero_grad()
+
+    logits = iris_classifier(batch_of_data)
+
+    loss = loss_fn(logits, batch_of_target)
+    print(f"loss: {loss.item()}")
+
+    loss.backward()
+
+    optimizer.step()
+
+"""
+--------
+output: 
+
+loss: 1.181538462638855
+loss: 1.1570122241973877
+loss: 1.1441924571990967
+loss: 1.1753343343734741
+loss: 1.1002519130706787
+loss: 1.1666862964630127
+loss: 1.0838695764541626
+loss: 1.1226308345794678
+loss: 1.1205450296401978
+loss: 1.1404510736465454
+loss: 1.094001054763794
+"""
+```
+
+As you can see, for each batch of data, we calculated the loss and the gradients and optimized the weights.
+You might have noticed that the loss in each batch is not necessarily improving.
+Don't worry about it, because we are going to address it pretty soon.
 
 ## Save and load our model
 
