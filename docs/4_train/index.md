@@ -209,6 +209,71 @@ So, as a result, the output of our loss function would be zero.
 
 ## Optimizer
 
+We have learned how to calculate the gradients of our loss function.
+Now, let's talk about how to update the weights of our model.
+To do that, we can use an `Optimizer`.
+One of the most famous `optimizers` is `Adam`.
+If you want to know more about it, you can take a look at this link:
+[Pytorch Adam](https://docs.pytorch.org/docs/stable/generated/torch.optim.Adam.html).
+When we want to create an instance of an `optimizer`, we should give it the tensors that it has to `optimize`.
+Let's define a simple model and make an `optimizer`.
+
+```python
+model = nn.Linear(4, 2)
+
+optimizer = Adam(model.parameters())
+```
+
+In the code above, we have a simple linear model.
+We gave the parameters of that model to our `optimizer`.
+`Optimizer` will try to decrease the loss, using the calculated `gradients`.
+So, for each step of `optimization`, we should do something like below:
+
+```python
+x = torch.tensor([
+    [1.0, 2.0, 3.0, 4.0],
+    [-1.0, -2.0, -3.0, -4.0],
+])  # simple data
+y_true = torch.tensor([0, 1])  # simple targe
+
+for step in range(10):
+    optimizer.zero_grad()  # clear the gradients
+
+    logits = model(x)  # make a prediction
+
+    loss = loss_fn(logits, y_true)  # calculate the loss
+    print(f"step {step}, loss: {loss.item()}")
+
+    loss.backward()  # calculate the gradients with respect to loss
+
+    optimizer.step()  # optimize the weights
+
+"""
+--------
+output: 
+step 0, loss: 0.02135099470615387
+step 1, loss: 0.020931493490934372
+step 2, loss: 0.02052045427262783
+step 3, loss: 0.020117828622460365
+step 4, loss: 0.019723571836948395
+step 5, loss: 0.019337747246026993
+step 6, loss: 0.0189602542668581
+step 7, loss: 0.01859092339873314
+step 8, loss: 0.018229883164167404
+step 9, loss: 0.01787690445780754
+"""
+```
+
+As you can see in the code above, we defined a simple dataset and a simple target.
+We run our `optimization` steps 10 times.
+In each step, first, we clear the previously calculated gradients using `optimizer.zero_grad()`.
+Then, we make a prediction and calculate the loss with the `loss function` we have defined earlier
+(`Cross Entropy Loss`).
+After that, we calculate the gradients using `loss.backward()`.
+And finally, we `optimize` the `weights` using `optimizer.step()`.
+As you can see in the output, the loss is decreasing in each step, which means our `optimization` is working
+correctly.
+
 ## Load the data and make the model
 
 Let's go step by step and load our data, and make our model, like the previous tutorial, to train it.
