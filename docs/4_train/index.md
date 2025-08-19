@@ -152,6 +152,63 @@ As you can see, the results are the same as our calculations.
 
 ## Loss function
 
+Now that we have an idea of how `AutoGrad` works, let's talk about a **loss function**.
+We have different **loss functions**, the one that we are going to explain right now is `CrossEntropyLoss`.
+If you want to know more about `CrossEntropyLoss`, you can check out this link:
+[Cross Entropy Loss PyTorch](https://docs.pytorch.org/docs/stable/generated/torch.nn.CrossEntropyLoss.html).
+Now, let's define our loss function and test it to see how it works.
+
+```python
+y_true = torch.tensor([0, 1])
+y = torch.tensor([
+    [2.0, 8.0],
+    [5.0, 5.0],
+])
+
+loss_fn = nn.CrossEntropyLoss()
+loss = loss_fn(y, y_true)
+
+print(loss.item())
+
+"""
+--------
+output: 
+3.347811460494995
+"""
+```
+
+In the code above, I have 2 classes (`1` and `0`).
+As you can see, the class of the first sample is `0` and the sample is `1`.
+My prediction for the first sample has a higher value for the class `1`.
+My second prediction has equal value for both of them.
+So, the loss output is not equal to zero.
+If I want my loss output to be zero, my predictions should look something like this:
+
+```python
+y_true = torch.tensor([0, 1])
+y = torch.tensor([
+    [100.0, 0.0],
+    [0.0, 100.0]
+])
+
+loss_fn = nn.CrossEntropyLoss()
+loss = loss_fn(y, y_true)
+
+print(loss.item())
+
+"""
+--------
+output: 
+
+0.0
+"""
+```
+
+As you can see, the prediction on each sample has a higher value with regard to its true class.
+So, as a result, the output of our loss function would be zero.
+
+## Optimizer
+
 ## Load the data and make the model
 
 Let's go step by step and load our data, and make our model, like the previous tutorial, to train it.
@@ -214,9 +271,7 @@ class IRISClassifier(nn.Module):
 iris_classifier = IRISClassifier()
 ```
 
-Now, we are ready to start learning how to train our model
-
-## Optimizer
+Now, we are ready to start learning how to train our model.
 
 ## Save and load our model
 
