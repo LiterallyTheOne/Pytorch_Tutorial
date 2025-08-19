@@ -121,10 +121,14 @@ Let's calculate the gradients ourselves to be able to check the results.
 $$
 \frac{\delta l}{\delta w}
 = \frac{\delta (wx + b - y)^2}{\delta w}
+\\\\
 = \frac{\delta (wx + b -y)^2}{\delta (wx+b-y)}\frac{\delta (wx+b-y)}{\delta w}
+\\\\
 = 2(wx + b -y)x
+\\\\
 \xrightarrow{w=5, b=2, x=2, y=7}
 2(5\times 2 + 2 - 7)\times 2
+\\\\
 =4(10+2-7)
 = 20
 $$
@@ -132,10 +136,14 @@ $$
 $$
 \frac{\delta l}{\delta b}
 = \frac{\delta (wx + b - y)^2}{\delta b}
+\\\\
 = \frac{\delta (wx + b -y)^2}{\delta (wx+b-y)}\frac{\delta (wx+b-y)}{\delta b}
+\\\\
 = 2(wx + b -y)
+\\\\
 \xrightarrow{w=5, b=2, x=2, y=7}
 2(5\times 2 + 2 - 7)
+\\\\
 =2(10+2-7)
 = 10
 $$
