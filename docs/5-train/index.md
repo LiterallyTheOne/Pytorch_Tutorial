@@ -1,5 +1,5 @@
 +++
-date = '2025-08-18T12:09:00+03:30'
+date = '2025-08-20T09:54:00+03:30'
 draft = false
 title = 'Train'
 description = "Training in PyTorch"
