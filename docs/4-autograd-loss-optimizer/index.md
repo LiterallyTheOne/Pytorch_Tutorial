@@ -17,7 +17,7 @@ In the previous tutorials, we prepared our **data** and our **model**.
 Now, we should learn about training fundamentals.
 
 Code of this tutorial is available at:
-[link to code](https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/4_train.ipynb)
+[link to code](https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/4_autograd_loss_optimizer.ipynb)
 
 ## AutoGrad
 
