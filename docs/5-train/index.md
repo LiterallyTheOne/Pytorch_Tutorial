@@ -12,6 +12,9 @@ image = "train.webp"
 
 ## Introduction
 
+In the previous tutorials, we have learned about **Model**, **Data**, and **Training fundamentals**.
+Now, let's combine them and train our model on **IRIS dataset**.
+
 Code of this tutorial is available at:
 [link to code](https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/5_train.ipynb)
 
