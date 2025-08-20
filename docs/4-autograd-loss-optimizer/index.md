@@ -8,7 +8,7 @@ tags = ["PyTorch", "Deep-Learning", "Python"]
 image = "autograd-loss-optimizer.webp"
 +++
 
-# Train
+# AutoGrad, loss function, and optimizer
 
 ## Introduction
 
