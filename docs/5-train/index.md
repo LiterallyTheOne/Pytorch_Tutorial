@@ -77,7 +77,7 @@ class IRISClassifier(nn.Module):
         return self.layers(x)
 
 
-iris_classifier = IRISClassifier()
+model = IRISClassifier()
 ```
 
 Now, we are ready to start learning how to train our model.
@@ -90,16 +90,18 @@ First, we need to define `loss function` and `optimizer`.
 
 ```python
 loss_fn = nn.CrossEntropyLoss()
-optimizer = Adam(iris_classifier.parameters())
+optimizer = Adam(model.parameters())
 ```
 
 Now, let's write our training loop.
 
 ```python
+model.train()
+
 for batch_of_data, batch_of_target in train_loader:
     optimizer.zero_grad()
 
-    logits = iris_classifier(batch_of_data)
+    logits = model(batch_of_data)
 
     loss = loss_fn(logits, batch_of_target)
     print(f"loss: {loss.item()}")
@@ -126,6 +128,9 @@ loss: 1.094001054763794
 """
 ```
 
+At first, we make sure that our model is in `train` mode by using `model.train()`
+(When we freshly create a model, it is in `train` mode).
+Then, we write the code for the `optimization`.
 As you can see, for each batch of data, we calculated the loss and the gradients and optimized the weights.
 You might have noticed that the loss in each batch is not necessarily improving.
 Don't worry about it, because we are going to address it pretty soon.
@@ -133,5 +138,7 @@ Don't worry about it, because we are going to address it pretty soon.
 ## Evaluate the model
 
 ## Save and load our model
+
+## Run on Accelerator
 
 ## Conclusion
