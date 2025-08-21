@@ -43,7 +43,7 @@ def train_step(
         optimizer: Optimizer,
         loss_fn: nn.Module,
         device: str,
-):
+) -> float:
     model.train()
 
     total_loss = 0
@@ -63,7 +63,7 @@ def train_step(
 
         optimizer.step()
 
-    print(f"training average_loss: {total_loss / len(data_loader)}")
+    return total_loss / len(data_loader)
 
 
 # -------------------[ Define Validation Step ]-------------------
@@ -72,7 +72,7 @@ def val_step(
         model: nn.Module,
         loss_fn: nn.Module,
         device: str,
-):
+) -> tuple[float, float]:
     model.eval()
 
     with torch.inference_mode():
@@ -91,8 +91,7 @@ def val_step(
             predictions = logits.argmax(dim=1)
             total_correct += predictions.eq(batch_of_target).sum().item()
 
-        print(f"validation average_loss: {total_loss / len(data_loader)}")
-        print(f"validation accuracy: {total_correct / len(data_loader.dataset)}")
+        return total_loss / len(data_loader), total_correct / len(data_loader.dataset)
 
 
 def main():
@@ -128,11 +127,20 @@ def main():
     loss_fn = nn.CrossEntropyLoss()
     optimizer = Adam(model.parameters())
 
+    # -------------------[ Train and evaluate the model ]-------------------
     for epoch in range(5):
         print("-" * 20)
         print(f"epoch: {epoch}")
-        train_step(train_loader, model, optimizer, loss_fn, device)
-        val_step(val_loader, model, loss_fn, device)
+        train_loss = train_step(train_loader, model, optimizer, loss_fn, device)
+        val_loss, val_accuracy = val_step(val_loader, model, loss_fn, device)
+        print(f"train_loss: {train_loss}")
+        print(f"val_loss: {val_loss}")
+        print(f"val_accuracy: {val_accuracy}")
+
+    print("-" * 20)
+    test_loss, test_accuracy = val_step(test_loader, model, loss_fn, device)
+    print(f"test_loss: {test_loss}")
+    print(f"test_accuracy: {test_accuracy}")
 
 
 if __name__ == "__main__":
