@@ -17,10 +17,6 @@ print(device)
 # -------------------[ Load the data ]-------------------
 iris = load_iris()
 
-data = torch.tensor(iris.data).to(torch.float)
-target = torch.tensor(iris.target)
-
-
 class IRISDataset(Dataset):
     def __init__(self, data, target):
         super().__init__()
@@ -31,10 +27,12 @@ class IRISDataset(Dataset):
         return len(self.data)
 
     def __getitem__(self, idx):
-        return self.data[idx], self.target[idx]
+        data = torch.tensor(self.data[idx]).to(torch.float)
+        target = torch.tensor(self.target[idx])
+        return data, target
 
 
-iris_dataset = IRISDataset(data, target)
+iris_dataset = IRISDataset(iris.data, iris.target)
 
 # -------------------[ Split the data to train, validation, and test ]-------------------
 g1 = torch.Generator().manual_seed(20)
