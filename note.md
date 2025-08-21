@@ -12,3 +12,4 @@
 * Find a better linear model for IRIS
 
 * in 5-train, explain that the train loss is decreasing but validation is random
+* Copy the latest output to 5-train
