@@ -149,10 +149,11 @@ To do so, we can use the code below:
 
 ```python
 data = torch.tensor(iris.data).to(torch.float)
-target = torch.tensor(iris.target).to(torch.float)
+target = torch.tensor(iris.target)
 ```
 
-Now, both the data and the target are in `Tensors` with the type of `float`.
+Now, both the data and the target are in `Tensors`.
+Also, I changed the type of data to `float`.
 For the next step, let's prepare a model that can work with this data.
 
 ```python
