@@ -441,4 +441,195 @@ Also, at the end, I evaluated our model on `test` subset as well.
 As you can see, `training loss` and `training accuracy` are improving,
 but `validation loss` and `validation accuracy` might not necessarily.
 
+## Better splitting
 
+We have learned how to split our dataset into `3` subsets (`train`, `validation`, `test`),
+using `random_split` in PyTorch, as below:
+
+```python
+class IRISDataset(Dataset):
+    def __init__(self, data, target):
+        super().__init__()
+        self.data = data
+        self.target = target
+
+    def __len__(self):
+        return len(self.data)
+
+    def __getitem__(self, idx):
+        return self.data[idx], self.target[idx]
+
+
+# -------------------[ Load the data ]-------------------
+iris = load_iris()
+
+data = torch.tensor(iris.data).to(torch.float)
+target = torch.tensor(iris.target)
+
+iris_dataset = IRISDataset(data, target)
+
+# -------------------[ Split the data to train, validation, and test ]-------------------
+g1 = torch.Generator().manual_seed(20)
+train_data, val_data, test_data = random_split(iris_dataset, [0.7, 0.2, 0.1], g1)
+```
+
+Now, let's see how the labels are distributed.
+
+```python
+label_count = {
+    0: 0,
+    1: 0,
+    2: 0,
+}
+
+for data, target in train_data:
+    label_count[target.item()] += 1
+
+print(f"train label count: {label_count}")
+
+"""
+--------
+output: 
+
+train label count: {0: 33, 1: 39, 2: 33}
+"""
+
+```
+
+```python
+label_count = {
+    0: 0,
+    1: 0,
+    2: 0,
+}
+
+for data, target in val_data:
+    label_count[target.item()] += 1
+
+print(f"validation label count: {label_count}")
+
+"""
+--------
+output: 
+
+validation label count: {0: 13, 1: 6, 2: 11}
+"""
+
+```
+
+```python
+label_count = {
+    0: 0,
+    1: 0,
+    2: 0,
+}
+
+for data, target in test_data:
+    label_count[target.item()] += 1
+
+print(f"test label count: {label_count}")
+
+"""
+--------
+output: 
+
+test label count: {0: 4, 1: 5, 2: 6}
+"""
+```
+
+As you can see, the distribution of the labels isn't perfect.
+Let's fix that by using the `train_test_split` function in `scikit-learn`.
+
+```python
+import numpy as np
+from sklearn.model_selection import train_test_split
+
+iris = load_iris()
+
+data = iris.data
+target = iris.target
+
+train_data, val_data, train_target, val_target = train_test_split(
+    data,
+    target,
+    test_size=0.3,
+    random_state=42,
+    stratify=target,
+)
+val_data, test_data, val_target, test_target = train_test_split(
+    val_data,
+    val_target,
+    test_size=0.33,
+    random_state=42,
+    stratify=val_target,
+)
+
+print("size of each subset: ")
+print(f"\ttrain: {train_data.shape[0]}")
+print(f"\tval: {val_data.shape[0]}")
+print(f"\ttest: {test_data.shape[0]}")
+
+print("target distribution:")
+print(f"\ttrain: {np.unique(train_target, return_counts=True)}")
+print(f"\tval: {np.unique(val_target, return_counts=True)}")
+print(f"\ttest: {np.unique(test_target, return_counts=True)}")
+
+"""
+--------
+output: 
+
+size of each subset: 
+	train: 105
+	val: 30
+	test: 15
+target distribution:
+	train: (array([0, 1, 2]), array([35, 35, 35]))
+	val: (array([0, 1, 2]), array([10, 10, 10]))
+	test: (array([0, 1, 2]), array([5, 5, 5]))
+"""
+
+```
+
+In the code above, first, we split our data into `2` subsets (`train`, `val`).
+As a result, our `train` would be $70%$ of the data, and `val` would be $30%$.
+Then we split the `val` into `val` and `test`.
+Then, our `test` would be $30% \times 33% = 9.9%$ of all data,
+and `val` would be $30% - 9.9% = 20.1%$ of all the data.
+As you can see, we used `stratify` argument as well.
+This argument forces the splitting to have equal distribution.
+As you can see, now we have `35` of each label for `train`,
+`10` of each label for `val`,
+and `5` of each label for `test`.
+Now, let's make a dataset out of them.
+
+```python
+train_data = IRISDataset(train_data, train_target)
+val_data = IRISDataset(val_data, val_target)
+test_data = IRISDataset(test_data, test_target)
+```
+
+## Standard Scaler
+
+One of the usual techniques in **Deep Learning** is to **Normalize** our data.
+Right now, every feature has a different **average** and **standard deviation** (**std**).
+Let's print them out.
+
+```python
+iris = load_iris()
+data = iris.data
+
+print(f"Mean of the features:\n\t {data.mean(axis=0)}")
+print(f"Standard deviation of the features:\n\t {data.std(axis=0)}")
+
+"""
+--------
+output: 
+Mean of the features:
+	 [5.84333333 3.05733333 3.758      1.19933333]
+Standard deviation of the features:
+	 [0.82530129 0.43441097 1.75940407 0.75969263]
+"""
+```
+
+We want to change the **average** of each feature to `0` and their **std** to `1`.
+To do so, we can
