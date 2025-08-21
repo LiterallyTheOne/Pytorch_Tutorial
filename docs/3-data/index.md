@@ -137,7 +137,7 @@ In the code above, I have chosen `10` samples of data using `np.linspace`.
 After that, I printed the chosen indices.
 
 Code of this tutorial is available at:
-[link to code](https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/3_data.ipynb)
+[link to the code](https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/3_data.ipynb)
 
 
 ## Make the data ready for the model
