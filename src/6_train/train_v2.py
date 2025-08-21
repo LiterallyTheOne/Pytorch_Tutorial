@@ -43,10 +43,11 @@ def train_step(
         optimizer: Optimizer,
         loss_fn: nn.Module,
         device: str,
-) -> float:
+) -> tuple[float, float]:
     model.train()
 
     total_loss = 0
+    total_correct = 0
 
     for batch_of_data, batch_of_target in data_loader:
         batch_of_data = batch_of_data.to(device)
@@ -59,11 +60,14 @@ def train_step(
         loss = loss_fn(logits, batch_of_target)
         total_loss += loss.item()
 
+        predictions = logits.argmax(dim=1)
+        total_correct += predictions.eq(batch_of_target).sum().item()
+
         loss.backward()
 
         optimizer.step()
 
-    return total_loss / len(data_loader)
+    return total_loss / len(data_loader), total_correct / len(data_loader.dataset)
 
 
 # -------------------[ Define Validation Step ]-------------------
@@ -131,16 +135,21 @@ def main():
     for epoch in range(5):
         print("-" * 20)
         print(f"epoch: {epoch}")
-        train_loss = train_step(train_loader, model, optimizer, loss_fn, device)
+        train_loss, train_accuracy = train_step(train_loader, model, optimizer, loss_fn, device)
         val_loss, val_accuracy = val_step(val_loader, model, loss_fn, device)
-        print(f"train_loss: {train_loss}")
-        print(f"val_loss: {val_loss}")
-        print(f"val_accuracy: {val_accuracy}")
+        print(f"train: ")
+        print(f"\tloss: {train_loss}")
+        print(f"\taccuracy: {train_accuracy}")
+
+        print(f"validation: ")
+        print(f"\tloss: {val_loss}")
+        print(f"\taccuracy: {val_accuracy}")
 
     print("-" * 20)
     test_loss, test_accuracy = val_step(test_loader, model, loss_fn, device)
-    print(f"test_loss: {test_loss}")
-    print(f"test_accuracy: {test_accuracy}")
+    print(f"test: ")
+    print(f"\tloss: {test_loss}")
+    print(f"\taccuracy: {test_accuracy}")
 
 
 if __name__ == "__main__":
