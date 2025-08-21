@@ -537,23 +537,20 @@ As you can see, the distribution of the labels isn't perfect.
 Let's fix that by using the `train_test_split` function in `scikit-learn`.
 
 ```python
-import numpy as np
-from sklearn.model_selection import train_test_split
-
 iris = load_iris()
 
 data = iris.data
 target = iris.target
 
-train_data, val_data, train_target, val_target = train_test_split(
+train_subset, val_subset, train_target, val_target = train_test_split(
     data,
     target,
     test_size=0.3,
     random_state=42,
     stratify=target,
 )
-val_data, test_data, val_target, test_target = train_test_split(
-    val_data,
+val_subset, test_subset, val_target, test_target = train_test_split(
+    val_subset,
     val_target,
     test_size=0.33,
     random_state=42,
@@ -561,9 +558,9 @@ val_data, test_data, val_target, test_target = train_test_split(
 )
 
 print("size of each subset: ")
-print(f"\ttrain: {train_data.shape[0]}")
-print(f"\tval: {val_data.shape[0]}")
-print(f"\ttest: {test_data.shape[0]}")
+print(f"\ttrain: {train_subset.shape[0]}")
+print(f"\tval: {val_subset.shape[0]}")
+print(f"\ttest: {test_subset.shape[0]}")
 
 print("target distribution:")
 print(f"\ttrain: {np.unique(train_target, return_counts=True)}")
@@ -591,6 +588,20 @@ As a result, our `train` would be $70%$ of the data, and `val` would be $30%$.
 Then we split the `val` into `val` and `test`.
 Then, our `val` would be $30% \times 66% = 19.8%$ of all data,
 and `test` would be $30% - 19.8% = 9.9%$ of all the data.
+As you can see, we used the `stratify` argument as well.
+This argument forces the splitting to have equal distribution.
+As you can see, now we have `35` samples of each label for `train`,
+`10` samples of each label for `val`,
+and `5` samples of each label for `test`.
+Now, let's make a dataset out of them.
+
+```python
+train_data = IRISDataset(train_subset, train_target)
+val_data = IRISDataset(val_subset, val_target)
+test_data = IRISDataset(test_sebset, test_target)
+```
+
+I have applied all the changes to `train_v3.py`.
 
 ## Standard Scaler
 
