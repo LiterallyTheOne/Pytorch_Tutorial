@@ -139,7 +139,6 @@ After that, I printed the chosen indices.
 Code of this tutorial is available at:
 [link to the code](https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/3_data.ipynb)
 
-
 ## Make the data ready for the model
 
 In our `hello world` example, we had `3` samples of data with `8` features.
@@ -263,10 +262,6 @@ In this way, data is more manageable and can be dealt with in so many different 
 Let's make a `Dataset` class for our `IRIS` dataset.
 
 ```python
-
-from torch.utils.data import Dataset
-
-
 class IRISDataset(Dataset):
     def __init__(self, data, target):
         super().__init__()
@@ -277,7 +272,9 @@ class IRISDataset(Dataset):
         return len(self.data)
 
     def __getitem__(self, idx):
-        return self.data[idx], self.target[idx]
+        data = torch.tensor(self.data[idx]).to(torch.float)
+        target = torch.tensor(self.target[idx])
+        return data, target
 ```
 
 In the code above, we have a class that is an abstract of `Dataset`, called `IRISDataset`.
@@ -285,11 +282,15 @@ As you can see, we gave `data` and `target` as arguments to this class.
 When we implement a `Dataset` in **PyTorch**, we have to implement `__len__` and `__getitem__` as well.
 The function `__len__` returns the size of our data (`len(self.data)`).
 Also, the function `__getitem__` returns each data and target with the given index.
+We should make sure that we transform our data and target correctly before returning.
+To do so, I transformed `data` to a `float Tensor` and `target` to a `Tensor`.
 This function is used when we want to iterate over our dataset.
-Let's create an instance of our `IRISDataset`.
+Let's load our data again and create an instance of our `IRISDataset`.
 
 ```python
-iris_dataset = IRISDataset(data, target)
+iris = load_iris()
+
+iris_dataset = IRISDataset(iris.data, iris.target)
 ```
 
 Now, if we want to iterate over our dataset, we can use a simple for.
