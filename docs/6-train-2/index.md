@@ -5,7 +5,7 @@ title = 'Train 2'
 description = "Training in PyTorch part 2"
 weight = 70
 tags = ["PyTorch", "Deep-Learning", "Python"]
-image = "train.webp"
+image = "train-2.webp"
 +++
 
 # Train 2
