@@ -138,18 +138,18 @@ def main():
         train_loss, train_accuracy = train_step(train_loader, model, optimizer, loss_fn, device)
         val_loss, val_accuracy = val_step(val_loader, model, loss_fn, device)
         print(f"train: ")
-        print(f"\tloss: {train_loss}")
-        print(f"\taccuracy: {train_accuracy}")
+        print(f"\tloss: {train_loss:.4f}")
+        print(f"\taccuracy: {train_accuracy:.4f}")
 
         print(f"validation: ")
-        print(f"\tloss: {val_loss}")
-        print(f"\taccuracy: {val_accuracy}")
+        print(f"\tloss: {val_loss:.4f}")
+        print(f"\taccuracy: {val_accuracy:.4f}")
 
     print("-" * 20)
     test_loss, test_accuracy = val_step(test_loader, model, loss_fn, device)
     print(f"test: ")
-    print(f"\tloss: {test_loss}")
-    print(f"\taccuracy: {test_accuracy}")
+    print(f"\tloss: {test_loss:.4f}")
+    print(f"\taccuracy: {test_accuracy:.4f}")
 
 
 if __name__ == "__main__":

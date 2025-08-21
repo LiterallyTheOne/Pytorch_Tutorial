@@ -366,18 +366,18 @@ def main():
         train_loss, train_accuracy = train_step(train_loader, model, optimizer, loss_fn, device)
         val_loss, val_accuracy = val_step(val_loader, model, loss_fn, device)
         print(f"train: ")
-        print(f"\tloss: {train_loss}")
-        print(f"\taccuracy: {train_accuracy}")
+        print(f"\tloss: {train_loss:.4f}")
+        print(f"\taccuracy: {train_accuracy:.4f}")
 
         print(f"validation: ")
-        print(f"\tloss: {val_loss}")
-        print(f"\taccuracy: {val_accuracy}")
+        print(f"\tloss: {val_loss:.4f}")
+        print(f"\taccuracy: {val_accuracy:.4f}")
 
     print("-" * 20)
     test_loss, test_accuracy = val_step(test_loader, model, loss_fn, device)
     print(f"test: ")
-    print(f"\tloss: {test_loss}")
-    print(f"\taccuracy: {test_accuracy}")
+    print(f"\tloss: {test_loss:.4f}")
+    print(f"\taccuracy: {test_accuracy:.4f}")
 
 
 if __name__ == "__main__":
@@ -386,52 +386,51 @@ if __name__ == "__main__":
 """
 --------
 output: 
-
-mps
+    mps
 --------------------
 epoch: 0
 train: 
-	loss: 1.316258593039079
-	accuracy: 0.37142857142857144
+	loss: 1.0473
+	accuracy: 0.3714
 validation: 
-	loss: 1.3464916547139485
-	accuracy: 0.2
+	loss: 1.0471
+	accuracy: 0.2333
 --------------------
 epoch: 1
 train: 
-	loss: 1.0523261969739741
-	accuracy: 0.37142857142857144
+	loss: 0.9799
+	accuracy: 0.4857
 validation: 
-	loss: 1.0549437999725342
-	accuracy: 0.2
+	loss: 0.9770
+	accuracy: 0.6667
 --------------------
 epoch: 2
 train: 
-	loss: 0.9647174531763251
-	accuracy: 0.3904761904761905
+	loss: 0.9447
+	accuracy: 0.6571
 validation: 
-	loss: 0.9450027545293173
-	accuracy: 0.6666666666666666
+	loss: 0.9077
+	accuracy: 0.6667
 --------------------
 epoch: 3
 train: 
-	loss: 0.9258036613464355
-	accuracy: 0.5904761904761905
+	loss: 0.9004
+	accuracy: 0.7143
 validation: 
-	loss: 0.8889280160268148
-	accuracy: 0.8
+	loss: 0.8768
+	accuracy: 0.6333
 --------------------
 epoch: 4
 train: 
-	loss: 0.8879721435633573
-	accuracy: 0.6190476190476191
+	loss: 0.8546
+	accuracy: 0.6857
 validation: 
-	loss: 0.8547986348470052
-	accuracy: 0.7333333333333333
+	loss: 0.8063
+	accuracy: 0.6667
 --------------------
 test: 
-	loss: 0.8799169361591339
-	accuracy: 0.6666666666666666
+	loss: 0.8586
+	accuracy: 0.6000
 """
 ```
 
