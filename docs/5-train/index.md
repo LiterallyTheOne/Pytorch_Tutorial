@@ -25,9 +25,6 @@ First, let's load our data with the code below:
 
 ```python
 iris = load_iris()
-
-data = torch.tensor(iris.data).to(torch.float)
-target = torch.tensor(iris.target)
 ```
 
 Now, let's make a `Dataset` for our data.
@@ -43,10 +40,12 @@ class IRISDataset(Dataset):
         return len(self.data)
 
     def __getitem__(self, idx):
-        return self.data[idx], self.target[idx]
+        data = torch.tensor(self.data[idx]).to(torch.float)
+        target = torch.tensor(self.target[idx])
+        return data, target
 
 
-iris_dataset = IRISDataset(data, target)
+iris_dataset = IRISDataset(iris.data, iris.target)
 ```
 
 Then, it is time to split it into `train`, `validation`, and `test`.
