@@ -601,7 +601,8 @@ val_data = IRISDataset(val_subset, val_target)
 test_data = IRISDataset(test_sebset, test_target)
 ```
 
-I have applied all the changes to `train_v3.py`.
+I have applied all the changes to
+[train_v3.py](https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/6_train/train_v3.py).
 
 ## Standard Scaler
 
@@ -610,22 +611,132 @@ Right now, every feature has a different **average** and **standard deviation** 
 Let's print them out.
 
 ```python
-iris = load_iris()
-data = iris.data
-
-print(f"Mean of the features:\n\t {data.mean(axis=0)}")
-print(f"Standard deviation of the features:\n\t {data.std(axis=0)}")
+print(f"Mean of the features:\n\t {train_subset.mean(axis=0)}")
+print(f"Standard deviation of the features:\n\t {train_subset.std(axis=0)}")
 
 """
 --------
 output: 
+
 Mean of the features:
-	 [5.84333333 3.05733333 3.758      1.19933333]
+	 [5.87333333 3.0552381  3.7847619  1.20571429]
 Standard deviation of the features:
-	 [0.82530129 0.43441097 1.75940407 0.75969263]
+	 [0.85882164 0.45502087 1.77553646 0.77383751]
 """
+
 ```
 
 We want to change the **average** of each feature to `0` and their **std** to `1`.
-To do so, we can
+To do so, we can use `NormalScaler` in `scikit-learn`.
+
+```python
+from sklearn.preprocessing import StandardScaler
+
+scaler = StandardScaler()
+scaler.fit(train_subset)
+
+train_subset_normalized = scaler.transform(train_subset)
+val_subset_normalized = scaler.transform(val_subset)
+test_subset_normalized = scaler.transform(test_subset)
+
+print(f"Mean of the features after scaling:")
+print(f"\ttrain: {train_subset_normalized.mean(axis=0)}")
+print(f"\tval: {val_subset_normalized.mean(axis=0)}")
+print(f"\ttest: {test_subset_normalized.mean(axis=0)}")
+print(f"Standard deviation of the features after scaling:")
+print(f"\ttrain: {train_subset_normalized.std(axis=0)}")
+print(f"\tval: {val_subset_normalized.std(axis=0)}")
+print(f"\ttest: {test_subset_normalized.std(axis=0)}")
+
+"""
+--------
+output: 
+
+Mean of the features after scaling:
+	train: [ 2.38327876e-15 -1.12145742e-15 -1.37456184e-16 -6.97854473e-17]
+	val: [-0.14360762  0.06174494 -0.04398402 -0.02030696]
+	test: [-0.06210059 -0.07744281 -0.06275769 -0.04184464]
+Standard deviation of the features after scaling:
+	train: [1. 1. 1. 1.]
+	val: [0.88306745 0.81063775 0.97257027 0.93027831]
+	test: [0.80131426 0.8871022  0.96009651 0.9513319 ]
+"""
+```
+
+In the code above, I have created an instance of `StandardScaler`.
+Then, I fitted my `scaler` only with `train_subset`.
+The reason for that was that we want `validation` and `test` subsets to be unseen.
+Then I have used the `transform` function to normalize each subset.
+As you can see, the average of each feature in `train_subset`, is now super close to zero,
+and the std of each of them is `1`.
+Because we only trained our scaler on `train_subset`,
+the average and the std of the `validation` and `test` subsets are not perfect.
+Now, let's make datasets from our normalized subsets.
+
+```python
+train_data = IRISDataset(train_subset_normalized, train_target)
+val_data = IRISDataset(val_subset_normalized, val_target)
+test_data = IRISDataset(test_subset_normalized, test_target)
+```
+
+Now, it's time to train and evaluate our model to see what happens.
+I have applied all the changes in
+[train_v4.py](https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/6_train/train_v4.py).
+Let's run
+[train_v4.py](https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/6_train/train_v4.py).
+
+```python
+"""
+--------
+output: 
+mps
+--------------------
+epoch: 0
+train: 
+	loss: 1.1541
+	accuracy: 0.1238
+validation: 
+	loss: 1.0946
+	accuracy: 0.2667
+--------------------
+epoch: 1
+train: 
+	loss: 1.0744
+	accuracy: 0.3810
+validation: 
+	loss: 1.0350
+	accuracy: 0.6667
+--------------------
+epoch: 2
+train: 
+	loss: 1.0080
+	accuracy: 0.6571
+validation: 
+	loss: 0.9773
+	accuracy: 0.7000
+--------------------
+epoch: 3
+train: 
+	loss: 0.9450
+	accuracy: 0.7810
+validation: 
+	loss: 0.9198
+	accuracy: 0.7000
+--------------------
+epoch: 4
+train: 
+	loss: 0.8759
+	accuracy: 0.8000
+validation: 
+	loss: 0.8617
+	accuracy: 0.7333
+--------------------
+test: 
+	loss: 0.8406
+	accuracy: 0.8000
+"""
+```
+
+As you can see, right now our evaluation results are not that random.
+
 
