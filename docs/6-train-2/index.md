@@ -737,6 +737,14 @@ test:
 """
 ```
 
-As you can see, right now our evaluation results are not that random.
+As you can see, right now our evaluation results are not random anymore.
+
+## Conclusion
+
+In this tutorial, we have discussed 2 techniques that are being used to enhance our training.
+First, we explained how to split our data in a way that labels are equally distributed.
+Then, we introduced `StandardScaler`, which is one of the most important preprocessing techniques.
+Although they are not specifically `PyTorch` modules, they are being used in `PyTorch` projects.
+
 
 
