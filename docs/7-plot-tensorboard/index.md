@@ -165,6 +165,10 @@ Right now, I can easily analyze my training.
 Also, because I write the results into files, I can see the results during the training process,
 which is extremely helpful
 
+# Conclusion
 
+In this tutorial, we have learned how to plot our training and evaluation results.
+First, we plotted our results using `matplotlib`.
+Then, we learned how to use `TensorBoard` for better analysis.
 
 
