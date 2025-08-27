@@ -1,5 +1,7 @@
 torch
 
+tensorboard
+
 matplotlib
 
 scikit-learn
