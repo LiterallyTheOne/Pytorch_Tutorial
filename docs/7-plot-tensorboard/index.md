@@ -4,7 +4,7 @@ draft = false
 title = 'Plot and TensorBoard'
 description = "explaining how to plot our training and validation results also how to use tensorboard"
 weight = 80
-tags = ["PyTorch", "Deep-Learning", "Python", "TensorBaord", "matplotlib"]
+tags = ["PyTorch", "Deep-Learning", "Python", "TensorBoard", "matplotlib"]
 image = "plot-tensorboard.webp"
 +++
 
