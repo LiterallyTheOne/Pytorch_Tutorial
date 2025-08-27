@@ -19,6 +19,9 @@ One of the best ways to do that is to plot them.
 In this tutorial, we are going to first plot the results using `matplotlib`,
 then we will be using `TensorBoard` to achieve a better result.
 
+Code of this tutorial is available at:
+[link to the code](https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/7-plot-tensorboard)
+
 ## Plot using matplotlib
 
 To plot our results using `matplotlib`,
