@@ -223,3 +223,37 @@ After transform compose: torch.Size([1, 14, 14])
 ```
 
 As you can see in the code above, it works as intended.
+
+## Train, validation, and test
+
+We had `60000` data to train and `10000` data for testing.
+Now, let's make a `validation subset` as well.
+One of the ways to do that is to split `test subset` into two subsets.
+
+```python
+g1 = torch.Generator().manual_seed(20)
+val_data, test_data = random_split(test_data, [0.7, 0.3], g1)
+
+print(f"val_data's size: {len(val_data)}")
+print(f"test_data's size: {len(test_data)}")
+
+"""
+--------
+output: 
+val_data's size: 7000
+test_data's size: 3000
+
+"""
+```
+
+In the code above, I have divided the `test_data` into `val_data` and `test_data`.
+So, `70%` of the `10000` ($10000 \times 70% = 7000$) goes for validation, and the rest goes for testing.
+Now, let's make data loaders from them.
+
+```python
+train_loader = DataLoader(train_data, batch_size=64, shuffle=True)
+val_loader = DataLoader(val_data, batch_size=64, shuffle=False)
+test_loader = DataLoader(test_data, batch_size=64, shuffle=False)
+```
+
+As you can see, we now have all 3 `dataloaders` which we needed to train our model.
