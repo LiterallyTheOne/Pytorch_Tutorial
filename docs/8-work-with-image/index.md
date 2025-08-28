@@ -357,3 +357,10 @@ test_loader = DataLoader(test_data, batch_size=16, shuffle=False)
 ```
 
 And here you have it, we have our 3 dataloaders that we can work with.
+
+## Conclusion
+
+In this tutorial, we have learned how to load and prepare image datasets.
+First, we used the built-in modules in `TorchVision`.
+Then, we explained `transforms` to prepare our dataset.
+Finally, we have learned how to work with `ImageFolder`.
