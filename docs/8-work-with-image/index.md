@@ -4,7 +4,7 @@ draft = false
 title = 'Work with image'
 description = "Explaining how to work with images in PyTorch"
 weight = 90
-tags = ["PyTorch", "TorchVision", "Deep-Learning", "Python", "matplotlib"]
+tags = ["PyTorch", "TorchVision", "Deep-Learning", "Python", "matplotlib", "Kaggle"]
 image = "work-with-image.webp"
 +++
 
@@ -257,3 +257,103 @@ test_loader = DataLoader(test_data, batch_size=64, shuffle=False)
 ```
 
 As you can see, we now have all 3 `dataloaders` which we needed to train our model.
+
+## ImageFolder
+
+One of the ways to load an image dataset is with `ImageFolder`.
+`ImageFolder` requires your data to be in this structure:
+
+* main_folder
+    * class_1
+        * image_1
+        * image_2
+        * ...
+    * class_2
+        * image_3
+        * image_4
+        * ...
+    * ...
+
+As you can see, each class has its own directory and all its data is in that directory.
+Let's download a dataset from `Kaggle` with the name of `Tom and Jerry` in this link:
+[Tom and Jerry](https://www.kaggle.com/datasets/balabaskar/tom-and-jerry-image-classification).
+We can use the code below to do that:
+
+```python
+import kagglehub
+from pathlib import Path
+
+path = kagglehub.dataset_download("balabaskar/tom-and-jerry-image-classification")
+path = Path(path) / "tom_and_jerry/tom_and_jerry"
+```
+
+In the code above, I have downloaded the dataset using `kagglehub`, also I changed the path to the correct
+path to have the structure that we wanted.
+Now, let's see what classes we have:
+
+```python
+for x in path.iterdir():
+    print(x.name)
+
+"""
+--------
+output: 
+
+tom
+jerry
+tom_jerry_1
+tom_jerry_0
+"""
+```
+
+As you can see, we have four classes:
+
+* `tom`: when only Tom is in the picture
+* `jerry`: when only Jerry is in the picture
+* `tom_jerry_1`: when both of them are on the picture
+* `tom_jerry_0`: when none of them are on the picture
+
+Let's load this dataset using `ImageFolder`.
+
+```python
+tom_and_jerry_transforms = transforms.Compose([transforms.Resize([90, 160]), transforms.ToTensor()])
+
+all_data = ImageFolder(path, transform=tom_and_jerry_transforms)
+```
+
+In the code above, I have defined two transforms, one for resizing and one to transform each image into a tensor.
+Then, I loaded the data using `ImageFolder`.
+Now, let's display one of the images.
+
+```python
+for image, label in all_data:
+    plt.figure()
+    plt.imshow(transforms.ToPILImage()(image))
+    print(label)
+    break
+
+"""
+--------
+output: 
+
+0
+"""
+```
+
+![tom and jerry sample](tom_and_jerry_sample.webp)
+
+In the code above, I have displayed one image of our dataset.
+Images are currently in tensor format.
+To change them back to images, I used a transform called: `ToPILImage()`.
+Now, let's split them and make dataloaders:
+
+```python
+g1 = torch.Generator().manual_seed(20)
+train_data, val_data, test_data = random_split(all_data, [0.7, 0.2, 0.1], g1)
+
+train_loader = DataLoader(train_data, batch_size=16, shuffle=True)
+val_loader = DataLoader(val_data, batch_size=16, shuffle=False)
+test_loader = DataLoader(test_data, batch_size=16, shuffle=False)
+```
+
+And here you have it, we have our 3 dataloaders that we can work with.
