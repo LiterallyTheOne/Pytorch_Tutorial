@@ -3,3 +3,4 @@ helpers/*.webp
 *.pth
 
 src/7_plot_tensorboard/runs
+src/data/
