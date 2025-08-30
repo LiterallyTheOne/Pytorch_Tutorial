@@ -37,7 +37,7 @@ output = np.zeros((out_h, out_w))
 fig, (ax_in, ax_out) = plt.subplots(1, 2, figsize=(10, 5))
 
 # Input image with grid
-ax_in.set_title("Input (with padding)")
+ax_in.set_title("Input")
 ax_in.set_xticks(np.arange(-0.5, padded_image.shape[1], 1))
 ax_in.set_yticks(np.arange(-0.5, padded_image.shape[0], 1))
 ax_in.grid(True)
@@ -56,7 +56,7 @@ rect = patches.Rectangle((0, 0),
 ax_in.add_patch(rect)
 
 # Output feature map
-ax_out.set_title("Output (feature map)")
+ax_out.set_title("Output")
 ax_out.set_xticks(np.arange(-0.5, out_w, 1))
 ax_out.set_yticks(np.arange(-0.5, out_h, 1))
 ax_out.grid(True)
