@@ -21,6 +21,65 @@ Also, we are going to talk about `ReLU` and make you more familiar with how to w
 Code of this tutorial is available at:
 [link to the code](https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/9_convolution_and_relu.ipynb)
 
+## Convolution
+
+Convolution is an operation in which we slide a smaller matrix (kernel) over a bigger matrix and calculate the
+weighted sum.
+Let's explain its concepts using an example.
+In our example, we have a `6x6` image, and our kernel is `3x3`, like below:
+
+```python
+image_size = (6, 6)
+kernel_size = (3, 3)
+
+image = np.arange(image_size[0] * image_size[1]).reshape(image_size)
+kernel = np.ones(kernel_size) / (kernel_size[0] * kernel_size[1])
+
+print("image:")
+print(image)
+print("kernel:")
+print(kernel)
+
+"""
+--------
+output: 
+
+image:
+[[ 0  1  2  3  4  5]
+ [ 6  7  8  9 10 11]
+ [12 13 14 15 16 17]
+ [18 19 20 21 22 23]
+ [24 25 26 27 28 29]
+ [30 31 32 33 34 35]]
+kernel:
+[[0.11111111 0.11111111 0.11111111]
+ [0.11111111 0.11111111 0.11111111]
+ [0.11111111 0.11111111 0.11111111]]
+"""
+```
+
+As you can see, our image is the numbers from `0` to `35`, and our kernel is working as an average kernel.
+If we apply convolution, we are going to have a result like below:
+
+![conv](conv.gif)
+
+As you can see in the GIF above, the kernel is being slid on our image, and we are getting the average of each `3x3`
+block as an output.
+Let's calculate the first block.
+
+$$
+0 \times \frac{1}{9} +
+1 \times \frac{1}{9} +
+2 \times \frac{1}{9} +
+6 \times \frac{1}{9} +
+7 \times \frac{1}{9} +
+8 \times \frac{1}{9} +
+12 \times \frac{1}{9} +
+13 \times \frac{1}{9} +
+14 \times \frac{1}{9} =
+7
+$$
+
 ## Load MNIST
 
 At first, let's load **MNIST** again like we did in the previous tutorial.
@@ -61,3 +120,20 @@ Each image is grayscale, so it has `1` channel, and the size of the image is `28
 
 Convolution is an operation in which we slide a smaller matrix (kernel) over a bigger matrix and calculate the
 weighted sum.
+
+We can define a `Convolution layer` in **PyTorch** like below:
+
+```python
+conv_1 = nn.Conv2d(
+    in_channels=1,
+    out_channels=3,
+    kernel_size=3,
+)
+```
+
+In the code above, we have defined a `convolution layer`.
+This layer takes `1` channel as its input (because our data has `1` channel).
+For its output, it creates `3` channels.
+Also, it has a `3x3` kernel.
+
+Before we run our `convolution layer` on real data, let's explain how it works in an example where its shape is `6x6`.
