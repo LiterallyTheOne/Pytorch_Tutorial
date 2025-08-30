@@ -7,9 +7,8 @@ from matplotlib.animation import FuncAnimation, PillowWriter
 # Parameters
 # ---------------------------
 image_size = (6, 6)
-kernel = np.array([[1, 0, -1],
-                   [1, 0, -1],
-                   [1, 0, -1]])  # simple edge-detection kernel
+kernel_size = (3, 3)
+kernel = np.ones(kernel_size) / (kernel_size[0] * kernel_size[1])
 
 stride = 1
 padding = 1
@@ -106,10 +105,7 @@ def update(frame):
     # Update output text
     for ii in range(out_h):
         for jj in range(out_w):
-            if output[ii, jj] != 0:
-                texts_out[ii][jj].set_text(str(int(output[ii, jj])))
-            else:
-                texts_out[ii][jj].set_text("")
+            texts_out[ii][jj].set_text(str(int(output[ii, jj])))
 
     # Move output highlight
     rect_out.set_xy((j - 0.5, i - 0.5))
