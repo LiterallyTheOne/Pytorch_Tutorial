@@ -197,7 +197,7 @@ $$
 
 ## Load MNIST
 
-At first, let's load **MNIST** again like we did in the previous tutorial.
+Now, let's load **MNIST** again like we did in the previous tutorial.
 
 ```python
 train_data = MNIST("data/", train=True, download=True, transform=transforms.ToTensor())
