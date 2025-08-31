@@ -3,4 +3,6 @@ helpers/*.webp
 *.pth
 
 src/7_plot_tensorboard/runs
+src/9_convolution_relu/runs
+src/9_convolution_relu/data
 src/data/
