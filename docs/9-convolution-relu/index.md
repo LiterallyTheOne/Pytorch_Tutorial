@@ -311,3 +311,48 @@ output: tensor([0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 5])
 
 In the code above, we have created a tensor called `a1` which has values in the range of `[-5, 5]`.
 We fed `a1` to `relu` and as a result, all the negative values have become zeros.
+
+## Flatten
+
+`Flatten` is a layer that we use to change the multidimensional input to one dimension.
+It is pretty useful when we want to change the dimension of the output of our **convolution layers** to one dimension
+and feed it to our **linear layers** in order to classify them.
+We can define a `Flatten` layer in **PyTorch** like below:
+
+```python
+flatten = nn.Flatten()
+```
+
+Now, let's test it to see if it works as intended.
+
+```python
+a2 = torch.arange(0, 16).reshape((2, 2, 4)).unsqueeze(0)
+result = flatten(a2)
+
+print(f"input: {a2}")
+print(f"input shape : {a2.shape}")
+print(f"output: {result}")
+print(f"output shape : {result.shape}")
+
+"""
+--------
+output: 
+
+input: tensor([[[[ 0,  1,  2,  3],
+          [ 4,  5,  6,  7]],
+
+         [[ 8,  9, 10, 11],
+          [12, 13, 14, 15]]]])
+input shape: torch.Size([1, 2, 2, 4])
+output: tensor([[ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15]])
+output shape: torch.Size([1, 16])
+"""
+```
+
+In the code above, we have defined an input called `a2` with the shape of `2x2x4`.
+The values in `a2` are in range of `[0, 16]`.
+Then we used `unsqueeze(0)` to add a dimension to the start of the tensor.
+We did that because each layer in **PyTorch** requires a batch of data, not a single data by itself.
+Then we fed that data to the `flatten` layer.
+As a result, we can see the input shape has changed from `2x2x4` to `16`.
+Also, all the data is untouched.
