@@ -148,6 +148,49 @@ $$
 * S: Stride
 * P: Padding
 
+### Dilation
+
+Dilation is a technique that we use to make the kernel bigger to cover a bigger area.
+To do so, we insert gaps between our kernel.
+For example, if our kernel is like below:
+
+$$
+\begin{bmatrix}
+1 & 2 & 3 \\
+4 & 5 & 6 \\
+7 & 8 & 9 \\
+\end{bmatrix}
+$$
+
+After `dilation=2`, it becomes like below:
+
+$$
+\begin{bmatrix}
+1 & 0 & 2 & 0 & 3 \\
+0 & 0 & 0 & 0 & 0 \\
+4 & 0 & 5 & 0 & 6 \\
+0 & 0 & 0 & 0 & 0 \\
+7 & 0 & 8 & 0 & 9 \\
+\end{bmatrix}
+$$
+
+![conv dilation 2](conv_dilation_2.gif)
+
+As you can see in the GIF above, we have `dilation=2`, so our kernel becomes `5x5`.
+We can calculate the output shape with the formula below:
+
+$$
+W_{out}=\frac{(W_{in}+2P_w - D_w \times (K_w - 1) -1)}{S_w} + 1
+\\\\
+H_{out}=\frac{(H_{in}+2P_h - D_h \times (K_h - 1) -1)}{S_h} + 1
+$$
+
+* W: Width
+* H: Height
+* K: Kernel
+* S: Stride
+* P: Padding
+* D: Dilation
 
 ## Load MNIST
 
