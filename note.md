@@ -14,4 +14,4 @@
 * In 5-train, explain that the train loss is decreasing but validation is random
 * Copy the latest output to 5-train
 
-* Don't forget `ReLU`
+* 10_transfer_learning and fine-tuning
