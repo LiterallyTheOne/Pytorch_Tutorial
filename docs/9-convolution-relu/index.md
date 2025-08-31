@@ -80,6 +80,47 @@ $$
 7
 $$
 
+As you can see, the calculations have the same results as the code.
+Also, our input's shape is `6x6`, but our output's shape is `4x4`.
+The reason behind that is our kernel is `3x3`.
+So, we can only slide it `4` times on our input.
+For now, we can calculate it like below:
+
+$$
+W_{out}=(W_{in}-K_{w}) + 1
+\\\\
+H_{out}=(H_{in}-K_{h}) + 1
+$$
+
+* W: Width
+* H: Height
+* K: Kernel
+
+Now, let's talk about 3 important things in **Convolution**.
+
+### Stride
+
+Right now, we are sliding our kernel `1` square at a time.
+If we decide to slide it with a number different from one, we can use `stride`.
+
+![conv stride](conv_stride_2.gif)
+
+As you can see in the GIF above, we put the stride to `2`.
+So, it slides `2` squares instead of `1` in both `x` and `y` axis.
+As a result, our output's shape becomes half of what it was.
+We can calculate the output's shape as below:
+
+$$
+W_{out}=\frac{(W_{in}-K_{w})}{S_{w}} + 1
+\\\\
+H_{out}=\frac{(H_{in}-K_{h})}{S_{h}} + 1
+$$
+
+* W: Width
+* H: Height
+* K: Kernel
+* S: Stride
+
 ## Load MNIST
 
 At first, let's load **MNIST** again like we did in the previous tutorial.
