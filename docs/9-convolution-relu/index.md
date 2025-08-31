@@ -233,9 +233,8 @@ Each image is grayscale, so it has `1` channel, and the size of the image is `28
 
 ## Convolution layer
 
-Convolution is an operation in which we slide a smaller matrix (kernel) over a bigger matrix and calculate the
-weighted sum.
-
+Earlier, we learned how `convolution` works.
+Now, let's talk about how to use it in **PyTorch**.
 We can define a `Convolution layer` in **PyTorch** like below:
 
 ```python
@@ -243,6 +242,9 @@ conv_1 = nn.Conv2d(
     in_channels=1,
     out_channels=3,
     kernel_size=3,
+    stride=1,
+    padding=1,
+    dilation=1,
 )
 ```
 
@@ -250,5 +252,62 @@ In the code above, we have defined a `convolution layer`.
 This layer takes `1` channel as its input (because our data has `1` channel).
 For its output, it creates `3` channels.
 Also, it has a `3x3` kernel.
+As you can see, we have control over `stride`, `padding`, and `dilation`.
+Now, let's feed our loaded images to `conv_1`, to see what happens.
 
-Before we run our `convolution layer` on real data, let's explain how it works in an example where its shape is `6x6`.
+```python
+result = conv_1(images)
+print(f"input shape : {images.shape}")
+print(f"output shape : {result.shape}")
+
+"""
+--------
+output: 
+input shape : torch.Size([64, 1, 28, 28])
+output shape : torch.Size([64, 3, 28, 28])
+
+"""
+```
+
+The results above show that the width and height of our inputs and outputs are the same.
+The reason behind that is that we put `padding` to `1`.
+Also, we have 3 channels for the results as expected.
+
+## ReLU
+
+`ReLU` stands for `Rectified Linear Unit`.
+It is one of the most used activation functions in **Deep Learning**.
+The logic behind that is pretty simple.
+It only changes the negative values to `0`.
+Here is its formula:
+
+$$
+ReLU(x) = max(0, x)
+$$
+
+We can define `ReLU` in **PyTorch** as below:
+
+```python
+relu = nn.ReLU()
+```
+
+Now let's test it to see how it works:
+
+```python
+a1 = torch.arange(-5, 6)
+result = relu(a1)
+
+print(f"input: {a1}")
+print(f"output: {result}")
+
+"""
+--------
+output: 
+
+input: tensor([-5, -4, -3, -2, -1,  0,  1,  2,  3,  4,  5])
+output: tensor([0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 5])
+"""
+```
+
+In the code above, we have created a tensor called `a1` which has values in the range of `[-5, 5]`.
+We fed `a1` to `relu` and as a result, all the negative values have become zeros.
