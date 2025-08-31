@@ -121,6 +121,34 @@ $$
 * K: Kernel
 * S: Stride
 
+### padding
+
+Padding is a technique that we use to fill the surrounding of the input with some values.
+The most common value for padding is `0`, which is called `zero padding`.
+The main reason for that is to prevent our image from being shrunk after some convolutions.
+In the previous example, you saw that the image with `6x6` becomes `4x4`.
+If the input shape and output shape are the same, it is called `zero-padding`.
+
+![conv pad 1](conv_pad_1.gif)
+
+As you can see in the GIF above, we have added zeros to the surroundings of
+our input.
+As a result, our output has the same shape as our input (`6x6`).
+We can calculate the output size as below:
+
+$$
+W_{out}=\frac{(W_{in}+2P_w-K_w)}{S_w} + 1
+\\\\
+H_{out}=\frac{(H_{in}+2P_h-K_h)}{S_h} + 1
+$$
+
+* W: Width
+* H: Height
+* K: Kernel
+* S: Stride
+* P: Padding
+
+
 ## Load MNIST
 
 At first, let's load **MNIST** again like we did in the previous tutorial.
