@@ -379,5 +379,10 @@ As you can see in the results above, we have achieved better results than **Tran
 | validation | $85.77$  |
 | test       | $85.37$  |
 
+## Conclusion
 
+In this tutorial, we learned how to use a pretrained model on a new dataset.
+This is one of the most used techniques in deep learning.
+At first, we learned about **Transfer Learning** and saw the results.
+Then, we learned about **Fine-tuning** and compared it with **Transfer Learning**.
 
