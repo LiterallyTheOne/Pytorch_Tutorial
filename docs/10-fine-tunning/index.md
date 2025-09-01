@@ -252,3 +252,132 @@ As you can see, in the results above, we have reached acceptable accuracies.
 
 The results are pretty close, so our model is not overfitting.
 Also, the charts are ascending.
+
+## Fine-tuning
+
+**Fine-tuning** has the same purpose as **Transfer Learning**.
+The only exception is that we train more layers.
+So, let's load our model again and freeze all layers except the last two ($17$ and $18$).
+
+```python
+model = mobilenet_v2(weights=MobileNet_V2_Weights.IMAGENET1K_V1)
+
+# -------------------[ Freeze the model weights ]-------------------
+for name, param in model.named_parameters():
+    if not ("18" in name or "17" in name):
+        param.requires_grad = False
+```
+
+In the code above, I iterated over the model's parameters.
+If they had $18$ or $17$ in their names, I didn't freeze them.
+Now, let's change the classifier layer and print the trainable parameters.
+
+```python
+model.classifier = nn.Linear(in_features=1280, out_features=4)
+
+for name, param in model.named_parameters():
+    if param.requires_grad:
+        print(f"{name} {param.shape}")
+
+"""
+--------
+output: 
+
+features.17.conv.0.0.weight torch.Size([960, 160, 1, 1])
+features.17.conv.0.1.weight torch.Size([960])
+features.17.conv.0.1.bias torch.Size([960])
+features.17.conv.1.0.weight torch.Size([960, 1, 3, 3])
+features.17.conv.1.1.weight torch.Size([960])
+features.17.conv.1.1.bias torch.Size([960])
+features.17.conv.2.weight torch.Size([320, 960, 1, 1])
+features.17.conv.3.weight torch.Size([320])
+features.17.conv.3.bias torch.Size([320])
+features.18.0.weight torch.Size([1280, 320, 1, 1])
+features.18.1.weight torch.Size([1280])
+features.18.1.bias torch.Size([1280])
+classifier.weight torch.Size([4, 1280])
+classifier.bias torch.Size([4])
+"""
+```
+
+As you can see, the last two layers of our model are still trainable, and we have a classifier that works with
+our dataset.
+I have already applied the required changes in
+[fine_tuning.py](https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/10_fine_tuning/fine_tuning.py).
+Let's run it to see the results.
+
+```python
+
+
+"""
+--------
+output: 
+
+mps
+--------------------
+epoch: 0
+train: 
+	loss: 0.9683
+	accuracy: 0.6188
+validation: 
+	loss: 0.7647
+	accuracy: 0.6870
+--------------------
+epoch: 1
+train: 
+	loss: 0.6625
+	accuracy: 0.7458
+validation: 
+	loss: 0.5958
+	accuracy: 0.7737
+--------------------
+...
+--------------------
+epoch: 18
+train: 
+	loss: 0.1789
+	accuracy: 0.9335
+validation: 
+	loss: 0.5616
+	accuracy: 0.8650
+--------------------
+epoch: 19
+train: 
+	loss: 0.1397
+	accuracy: 0.9518
+validation: 
+	loss: 0.6718
+	accuracy: 0.8577
+--------------------
+test: 
+	loss: 0.6284
+	accuracy: 0.8537
+
+"""
+
+```
+
+### Fine-tuning Train Accuracy
+
+![Fine-tuning Train accuracy](fine_tuning_accuracy_train.svg)
+
+* Orange: Transfer Learning
+* Red: Fine-tuning
+
+### Fine-tuning Validation Accuracy
+
+![Fine-tuning Validation Accuracy](fine_tuning_accuracy_val.svg)
+
+* Orange: Transfer Learning
+* Red: Fine-tuning
+
+As you can see in the results above, we have achieved better results than **Transfer Learning**.
+
+| subset     | accuracy |
+|------------|----------|
+| train      | $95.18$  |
+| validation | $85.77$  |
+| test       | $85.37$  |
+
+
+
