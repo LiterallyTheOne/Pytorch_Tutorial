@@ -6,6 +6,7 @@ description = "Model in Pytorch"
 weight = 30
 tags = ["PyTorch", "Deep-Learning", "Python"]
 image = "model.webp"
+code = "https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/2_model.ipynb"
 +++
 
 # Model
@@ -25,10 +26,6 @@ model = nn.Linear(8, 4)  # (features, number_of_classes)
 ![PyTorch hello world model](model-8-4.webp)
 
 Now, let's make the model a little bit more complex.
-
-Code of this tutorial is available at:
-[link to the code](https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/2_model.ipynb)
-
 
 ## Sequential Model
 

@@ -6,6 +6,7 @@ description = "Training in PyTorch"
 weight = 60
 tags = ["PyTorch", "Deep-Learning", "Python"]
 image = "train.webp"
+code = "https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/2_model.ipynb"
 +++
 
 # Train
@@ -14,9 +15,6 @@ image = "train.webp"
 
 In the previous tutorials, we have learned about **Model**, **Data**, and **Training fundamentals**.
 Now, let's combine them and train our model on **IRIS dataset**.
-
-Code of this tutorial is available at:
-[link to the code](https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/5_train.ipynb)
 
 ## Load the data and make the model
 

@@ -6,6 +6,7 @@ description = "Training in PyTorch part 2"
 weight = 70
 tags = ["PyTorch", "Deep-Learning", "Python"]
 image = "train-2.webp"
+code = "https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/6_train"
 +++
 
 # Train 2
@@ -16,8 +17,6 @@ In the previous tutorial, we have learned how to train our model.
 But our model wasn't getting properly trained.
 In this tutorial, we want to address that problem and try to solve it.
 
-Code of this tutorial is available at:
-[link to the code](https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/6_train)
 
 ## Modular train step and validation step
 

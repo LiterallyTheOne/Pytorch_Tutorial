@@ -6,6 +6,7 @@ description = "explaining how to plot our training and validation results also h
 weight = 80
 tags = ["PyTorch", "Deep-Learning", "Python", "TensorBoard", "matplotlib"]
 image = "plot-tensorboard.webp"
+code = "https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/7-plot-tensorboard"
 +++
 
 # Plot and TensorBoard
@@ -18,9 +19,6 @@ looking at the numbers becomes devastating.
 One of the best ways to do that is to plot them.
 In this tutorial, we are going to first plot the results using `matplotlib`,
 then we will be using `TensorBoard` to achieve a better result.
-
-Code of this tutorial is available at:
-[link to the code](https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/7-plot-tensorboard)
 
 ## Plot using matplotlib
 

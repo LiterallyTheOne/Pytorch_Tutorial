@@ -6,6 +6,7 @@ description = "Introduction to PyTorch"
 weight = 10
 tags = ["PyTorch", "Deep-Learning", "Python"]
 image = "introduction.webp"
+code = "https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/0_hello_world.ipynb"
 +++
 
 # Introduction
@@ -19,9 +20,6 @@ Because of its flexibility and **Pythonic inference**, it has become so popular,
 especially among researchers.
 So, let's write a **hello world** to understand **PyTorch** better.
 Then, in the future, we will complete this **hello world** example step by step.
-
-Code of this tutorial is available at:
-[link to the code](https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/0_hello_world.ipynb)
 
 ## Hello world
 

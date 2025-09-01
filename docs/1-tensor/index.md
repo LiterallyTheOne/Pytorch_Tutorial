@@ -6,6 +6,7 @@ description = "Tensor in Pytorch"
 weight = 20
 tags = ["PyTorch", "Deep-Learning", "Python"]
 image = "tensor.webp"
+code = "https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/1_tensor.ipynb"
 +++
 
 # Tensor
@@ -27,9 +28,6 @@ In our `Hello world` example, we have created random data using
 using `logits.argmax(1)`.
 In this tutorial, we are going to explain more about the main operations
 in `Tensor` and learn how to use them.
-
-Code of this tutorial is available at:
-[link to the code](https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/1_tensor.ipynb)
 
 ## Create a Tensor
 

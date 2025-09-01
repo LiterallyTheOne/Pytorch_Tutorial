@@ -6,6 +6,7 @@ description = "Explaning about convolution and ReLU"
 weight = 100
 tags = ["PyTorch", "TorchVision", "Deep-Learning", "Python", "matplotlib"]
 image = "convolution-and-relu.webp"
+code = "https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/9_convolution_and_relu.ipynb"
 +++
 
 # Convolution and ReLU
@@ -17,9 +18,6 @@ We learned how to load an image dataset and how to transform its images into ten
 In this tutorial, we are going to learn about a layer that is being widely used for images
 in **Deep Learning** called **Convolution**.
 Also, we are going to talk about `ReLU` and make you more familiar with how to work with any **layer**.
-
-Code of this tutorial is available at:
-[link to the code](https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/9_convolution_and_relu.ipynb)
 
 ## Convolution
 

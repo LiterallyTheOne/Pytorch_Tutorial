@@ -6,6 +6,7 @@ description = "AutoGrad, loss function, and optimizer in PyTorch"
 weight = 50
 tags = ["PyTorch", "Deep-Learning", "Python"]
 image = "autograd-loss-optimizer.webp"
+code = "https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/2_model.ipynb"
 +++
 
 # AutoGrad, loss function, and optimizer
@@ -15,9 +16,6 @@ image = "autograd-loss-optimizer.webp"
 Training a model is one of the most important features in **PyTorch**.
 In the previous tutorials, we prepared our **data** and our **model**.
 Now, we should learn about training fundamentals.
-
-Code of this tutorial is available at:
-[link to the code](https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/4_autograd_loss_optimizer.ipynb)
 
 ## AutoGrad
 
