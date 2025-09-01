@@ -529,3 +529,11 @@ test:
 ```
 
 As you can see, we have reached a pretty good accuracy, and our loss is pretty low.
+
+## Conclusion
+
+In this tutorial, we learned how **Convolution** works and how we can use it for image datasets.
+First, we explained the methodology of **Convolution**.
+Then, we showed how we can use **Convolution**, **ReLU**, and **Flatten** in **PyTorch**.
+After that, we made a model and calculated the output of each **Convolution layer**.
+Finally, we trained our model and saw the output.
