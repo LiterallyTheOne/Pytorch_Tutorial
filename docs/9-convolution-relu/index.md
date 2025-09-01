@@ -6,7 +6,7 @@ description = "Explaning about convolution and ReLU"
 weight = 100
 tags = ["PyTorch", "TorchVision", "Deep-Learning", "Python", "matplotlib"]
 image = "convolution-and-relu.webp"
-code = "https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/9_convolution_and_relu.ipynb"
+code = "https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/9_convolution_and_relu"
 +++
 
 # Convolution and ReLU
