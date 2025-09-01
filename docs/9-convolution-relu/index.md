@@ -356,3 +356,176 @@ We did that because each layer in **PyTorch** requires a batch of data, not a si
 Then we fed that data to the `flatten` layer.
 As a result, we can see the input shape has changed from `2x2x4` to `16`.
 Also, all the data is untouched.
+
+## Make a convolution model
+
+Now that we know how convolution works and know how to connect convolution with a linear model for classification,
+let's make a convolution model to classify the MNIST dataset.
+
+```python
+# -------------------[ Define Model ]-------------------
+class IRISClassifier(nn.Module):
+    def __init__(self):
+        super().__init__()
+
+        self.conv_layers = nn.Sequential(
+            nn.Conv2d(in_channels=1, out_channels=32, kernel_size=3, padding=1, stride=2),  # 32x14x14
+            nn.ReLU(),
+            nn.Conv2d(in_channels=32, out_channels=64, kernel_size=3, padding=1, stride=2),  # 64x7x7
+            nn.ReLU(),
+            nn.Conv2d(in_channels=64, out_channels=128, kernel_size=3, padding=1, stride=3),  # 128x3x3
+            nn.ReLU(),
+        )
+
+        self.classification_layers = nn.Sequential(
+            nn.Flatten(),
+            nn.Linear(128 * 3 * 3, 128),
+            nn.ReLU(),
+            nn.Linear(128, 10),
+        )
+
+    def forward(self, x):
+        x = self.conv_layers(x)
+        x = self.classification_layers(x)
+        return x
+```
+
+In the code above, we have 2 parts for our model.
+The first part consists of **Convolution layers** (`conv_layers`),
+and the other part has **Classification layers** (`classification_layers`).
+When we feed data to this model, it first goes through `conv_layers`, then it goes through `classification_layer`.
+For `conv_layers`, we have `3` **Convolution layers**.
+The first one takes the data with `1` channel and creates `32` channels as its output.
+Its kernel size is `3` with padding `1` and a stride of `2`, so we can calculate its output shape as below:
+
+$$
+W_{out}=\frac{(W_{in}+2P_w-K_w)}{S_w} + 1
+\rightarrow \frac{(28+2 \times 1 - 3)}{2}+1=13+1
+\rightarrow \fbox{W_{out}=14}
+\\\\
+H_{out}=\frac{(H_{in}+2P_h-K_h)}{S_h} + 1
+\rightarrow \frac{(28+2 \times 1 - 3)}{2}+1=13+1
+\rightarrow \fbox{H_{out}=14}
+$$
+
+For the second convolution, we take $32$ channels and make $64$ channels.
+Kernel size is $3$, padding is $1$, and stride is $2$.
+So, we can calculate the output shape as below:
+
+$$
+W_{out}=\frac{(W_{in}+2P_w-K_w)}{S_w} + 1
+\rightarrow \frac{(14 + 2 \times 1 - 3)}{2}+1=6+1
+\rightarrow \fbox{W_{out}=7}
+\\\\
+H_{out}=\frac{(H_{in}+2P_h-K_h)}{S_h} + 1
+\rightarrow \frac{(14 + 2 \times 1 - 3)}{2}+1=6+1
+\rightarrow \fbox{H_{out}=7}
+$$
+
+And the third convolution has `64` input channels and makes `128` output channels.
+Its kernel size is `3`, its padding is `1`, and its stride is `3`.
+So, let's calculate the output shape of this convolution to:
+
+$$
+W_{out}=\frac{(W_{in}+2P_w-K_w)}{S_w} + 1
+\rightarrow \frac{(7 + 2 \times 1 - 3)}{3}+1=2+1
+\rightarrow \fbox{W_{out}=3}
+\\\\
+H_{out}=\frac{(H_{in}+2P_h-K_h)}{S_h} + 1
+\rightarrow \frac{(7 + 2 \times 1 - 3)}{3}+1=2+1
+\rightarrow \fbox{H_{out}=3}
+$$
+
+Our classification layer has 2 **linear layers**.
+At first, we flatten the output of our `conv_layers`.
+The output was in the shape of $128 \times 3 \times 3$, so the flatten of that would be the multiplication of them.
+First, **linear layer** takes the $128 \times 3 \times 3$ and makes an output with $128$ neurons.
+And the last **linear layer** takes $128$ as its input shape and outputs the $10$ class that we have for **MNIST**.
+Now, let's give a batch of **MNIST** images to see if it works or not:
+
+```python
+model = IRISClassifier()
+model(images)
+
+"""
+--------
+output: 
+
+tensor([[-0.0223,  0.0049, -0.0598, -0.0597, -0.0689, -0.0711,  0.0565, -0.0623,
+          0.0433,  0.0466],
+        [-0.0215,  0.0064, -0.0591, -0.0567, -0.0690, -0.0680,  0.0531, -0.0552,
+          0.0441,  0.0499],
+          ...
+        [-0.0225,  0.0070, -0.0598, -0.0565, -0.0709, -0.0740,  0.0536, -0.0624,
+          0.0413,  0.0421]], grad_fn=<AddmmBackward0>)
+"""
+
+```
+
+As you can see, our model predicts $10$ classes for each image, which is the thing that we wanted.
+
+## Train the model
+
+Now, let's change the last code
+([train_tensorboard.py](https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/7_plot_tensorboard/train_tensorboard.py))
+And change the data to **MNIST** and change the model to our new **convolution model**.
+I have already done that, and the changes are in
+[train_mnist_conv.py](https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/9_convolution_relu/train_mnist_conv.py).
+So let's run it for $5$ epochs and see the output.
+
+```python
+
+"""
+--------
+output: 
+
+mps
+--------------------
+epoch: 0
+train: 
+	loss: 0.2567
+	accuracy: 0.9219
+validation: 
+	loss: 0.0748
+	accuracy: 0.9757
+--------------------
+epoch: 1
+train: 
+	loss: 0.0736
+	accuracy: 0.9773
+validation: 
+	loss: 0.0575
+	accuracy: 0.9816
+--------------------
+epoch: 2
+train: 
+	loss: 0.0501
+	accuracy: 0.9843
+validation: 
+	loss: 0.0592
+	accuracy: 0.9813
+--------------------
+epoch: 3
+train: 
+	loss: 0.0363
+	accuracy: 0.9887
+validation: 
+	loss: 0.0389
+	accuracy: 0.9859
+--------------------
+epoch: 4
+train: 
+	loss: 0.0289
+	accuracy: 0.9912
+validation: 
+	loss: 0.0409
+	accuracy: 0.9854
+--------------------
+test: 
+	loss: 0.0465
+	accuracy: 0.9863
+
+"""
+```
+
+As you can see, we have reached a pretty good accuracy, and our loss is pretty low.
