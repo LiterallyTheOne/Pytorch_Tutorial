@@ -1,13 +1,13 @@
-+++
-date = '2025-09-01T09:24:00+03:30'
-draft = false
-title = "Fine-tuning"
-description = "Explain about how to use transfer learning and how to fine-tune a model"
-weight = 110
-tags = ["PyTorch", "TorchVision", "Deep-Learning", "Python", "Kaggle", "Tensorboard"]
-image = "fine-tuning.webp"
-code = "https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/10_fine_tuning"
-+++
+---
+date: '2025-09-01T09:24:00+03:30'
+draft: false
+title: "Fine-tuning"
+description: "Explain about how to use transfer learning and how to fine-tune a model"
+weight: 110
+tags: ["PyTorch", "TorchVision", "Deep-Learning", "Python", "Kaggle", "Tensorboard"]
+image: "fine-tuning.webp"
+code: "https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/10_fine_tuning"
+---
 
 # Fine-tuning
 
@@ -27,29 +27,29 @@ We have loaded a dataset called **Tom and Jerry image classification** and made 
 Now, let's do it again.
 
 ```python
-path = kagglehub.dataset_download("balabaskar/tom-and-jerry-image-classification")
-path = Path(path) / "tom_and_jerry/tom_and_jerry"
+path: kagglehub.dataset_download("balabaskar/tom-and-jerry-image-classification")
+path: Path(path) / "tom_and_jerry/tom_and_jerry"
 
-tom_and_jerry_transforms = transforms.Compose([transforms.Resize([90, 160]), transforms.ToTensor()])
+tom_and_jerry_transforms: transforms.Compose([transforms.Resize([90, 160]), transforms.ToTensor()])
 
-all_data = ImageFolder(path, transform=tom_and_jerry_transforms)
+all_data: ImageFolder(path, transform=tom_and_jerry_transforms)
 
-g1 = torch.Generator().manual_seed(20)
-train_data, val_data, test_data = random_split(all_data, [0.7, 0.2, 0.1], g1)
+g1: torch.Generator().manual_seed(20)
+train_data, val_data, test_data: random_split(all_data, [0.7, 0.2, 0.1], g1)
 
-train_loader = DataLoader(train_data, batch_size=16, shuffle=True)
-val_loader = DataLoader(val_data, batch_size=16, shuffle=False)
-test_loader = DataLoader(test_data, batch_size=16, shuffle=False)
+train_loader: DataLoader(train_data, batch_size=16, shuffle=True)
+val_loader: DataLoader(val_data, batch_size=16, shuffle=False)
+test_loader: DataLoader(test_data, batch_size=16, shuffle=False)
 ```
 
 Let's plot on batch of its data:
 
 ```python
-images, labels = next(iter(train_loader))
+images, labels: next(iter(train_loader))
 
-fig, axes = plt.subplots(4, 4)
+fig, axes: plt.subplots(4, 4)
 
-axes_ravel = axes.ravel()
+axes_ravel: axes.ravel()
 
 for i, (image, label) in enumerate(zip(images, labels)):
     axes_ravel[i].imshow(transforms.ToPILImage()(image))
@@ -68,7 +68,7 @@ To load that model, we can use the code below:
 ```python
 from torchvision.models import mobilenet_v2, MobileNet_V2_Weights
 
-model = mobilenet_v2(weights=MobileNet_V2_Weights.IMAGENET1K_V1)
+model: mobilenet_v2(weights=MobileNet_V2_Weights.IMAGENET1K_V1)
 print(model)
 
 """
@@ -131,7 +131,7 @@ So, the first step is to freeze all the layers.
 ```python
 # -------------------[ Freeze the model weights ]-------------------
 for param in model.parameters():
-    param.requires_grad = False
+    param.requires_grad: False
 ```
 
 With the code above, we can freeze all the parameters.
@@ -142,7 +142,7 @@ print("classifier before the change:")
 print(model.classifier)
 print("-" * 20)
 # -------------------[ Change the classifier layer ]-------------------
-model.classifier = nn.Linear(in_features=1280, out_features=4)
+model.classifier: nn.Linear(in_features=1280, out_features=4)
 
 print("classifier after the change:")
 print(model.classifier)
@@ -260,12 +260,12 @@ The only exception is that we train more layers.
 So, let's load our model again and freeze all layers except the last two ($17$ and $18$).
 
 ```python
-model = mobilenet_v2(weights=MobileNet_V2_Weights.IMAGENET1K_V1)
+model: mobilenet_v2(weights=MobileNet_V2_Weights.IMAGENET1K_V1)
 
 # -------------------[ Freeze the model weights ]-------------------
 for name, param in model.named_parameters():
     if not ("18" in name or "17" in name):
-        param.requires_grad = False
+        param.requires_grad: False
 ```
 
 In the code above, I iterated over the model's parameters.
@@ -273,7 +273,7 @@ If they had $18$ or $17$ in their names, I didn't freeze them.
 Now, let's change the classifier layer and print the trainable parameters.
 
 ```python
-model.classifier = nn.Linear(in_features=1280, out_features=4)
+model.classifier: nn.Linear(in_features=1280, out_features=4)
 
 for name, param in model.named_parameters():
     if param.requires_grad:

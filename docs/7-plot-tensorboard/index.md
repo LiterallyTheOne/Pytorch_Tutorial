@@ -1,13 +1,13 @@
-+++
-date = '2025-08-27T11:28:00+03:30'
-draft = false
-title = 'Plot and TensorBoard'
-description = "explaining how to plot our training and validation results also how to use tensorboard"
-weight = 80
-tags = ["PyTorch", "Deep-Learning", "Python", "TensorBoard", "matplotlib"]
-image = "plot-tensorboard.webp"
-code = "https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/7-plot-tensorboard"
-+++
+---
+date: '2025-08-27T11:28:00+03:30'
+draft: false
+title: 'Plot and TensorBoard'
+description: "explaining how to plot our training and validation results also how to use tensorboard"
+weight: 80
+tags: ["PyTorch", "Deep-Learning", "Python", "TensorBoard", "matplotlib"]
+image: "plot-tensorboard.webp"
+code: "https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/7-plot-tensorboard"
+---
 
 # Plot and TensorBoard
 
@@ -27,21 +27,21 @@ the first thing that we should do is to make a list of our previous results in o
 like below:
 
 ```python
-train_losses = []
-train_accuracies = []
+train_losses: []
+train_accuracies: []
 
-val_losses = []
-val_accuracies = []
+val_losses: []
+val_accuracies: []
 
 for epoch in range(20):
     print("-" * 20)
     print(f"epoch: {epoch}")
 
-    train_loss, train_accuracy = train_step(train_loader, model, optimizer, loss_fn, device)
+    train_loss, train_accuracy: train_step(train_loader, model, optimizer, loss_fn, device)
     train_losses.append(train_loss)
     train_accuracies.append(train_accuracy)
 
-    val_loss, val_accuracy = val_step(val_loader, model, loss_fn, device)
+    val_loss, val_accuracy: val_step(val_loader, model, loss_fn, device)
     val_losses.append(val_loss)
     val_accuracies.append(val_accuracy)
 
@@ -100,7 +100,7 @@ So, let's make one.
 from torch.utils.tensorboard import SummaryWriter
 
 # -------------------[ Setup TensorBoard ]-------------------
-writer = SummaryWriter()
+writer: SummaryWriter()
 ```
 
 In the code above, I have imported the `SummaryWriter` from `torch.utils.tensorboard`.
@@ -114,11 +114,11 @@ for epoch in range(20):
     print("-" * 20)
     print(f"epoch: {epoch}")
 
-    train_loss, train_accuracy = train_step(train_loader, model, optimizer, loss_fn, device)
+    train_loss, train_accuracy: train_step(train_loader, model, optimizer, loss_fn, device)
     writer.add_scalar("loss/train", train_loss, epoch)
     writer.add_scalar("accuracy/train", train_accuracy, epoch)
 
-    val_loss, val_accuracy = val_step(val_loader, model, loss_fn, device)
+    val_loss, val_accuracy: val_step(val_loader, model, loss_fn, device)
     writer.add_scalar("loss/val", val_loss, epoch)
     writer.add_scalar("accuracy/val", val_accuracy, epoch)
 

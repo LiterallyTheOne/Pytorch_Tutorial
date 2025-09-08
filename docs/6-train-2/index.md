@@ -1,13 +1,13 @@
-+++
-date = '2025-08-21T08:00:00+03:30'
-draft = false
-title = 'Train 2'
-description = "Training in PyTorch part 2"
-weight = 70
-tags = ["PyTorch", "Deep-Learning", "Python"]
-image = "train-2.webp"
-code = "https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/6_train"
-+++
+---
+date: '2025-08-21T08:00:00+03:30'
+draft: false
+title: 'Train 2'
+description: "Training in PyTorch part 2"
+weight: 70
+tags: ["PyTorch", "Deep-Learning", "Python"]
+image: "train-2.webp"
+code: "https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/6_train"
+---
 
 # Train 2
 
@@ -33,40 +33,40 @@ from sklearn.datasets import load_iris
 
 # -------------------[ Find the device ]-------------------
 if torch.accelerator.is_available():
-    device = torch.accelerator.current_accelerator()
+    device: torch.accelerator.current_accelerator()
 else:
-    device = "cpu"
+    device: "cpu"
 
 print(device)
 
 # -------------------[ Load the data ]-------------------
-iris = load_iris()
+iris: load_iris()
 
 
 class IRISDataset(Dataset):
     def __init__(self, data, target):
         super().__init__()
-        self.data = data
-        self.target = target
+        self.data: data
+        self.target: target
 
     def __len__(self):
         return len(self.data)
 
     def __getitem__(self, idx):
-        data = torch.tensor(self.data[idx]).to(torch.float)
-        target = torch.tensor(self.target[idx])
+        data: torch.tensor(self.data[idx]).to(torch.float)
+        target: torch.tensor(self.target[idx])
         return data, target
 
 
-iris_dataset = IRISDataset(iris.data, iris.target)
+iris_dataset: IRISDataset(iris.data, iris.target)
 
 # -------------------[ Split the data to train, validation, and test ]-------------------
-g1 = torch.Generator().manual_seed(20)
-train_data, val_data, test_data = random_split(iris_dataset, [0.7, 0.2, 0.1], g1)
+g1: torch.Generator().manual_seed(20)
+train_data, val_data, test_data: random_split(iris_dataset, [0.7, 0.2, 0.1], g1)
 
-train_loader = DataLoader(train_data, batch_size=10, shuffle=True)
-val_loader = DataLoader(val_data, batch_size=10, shuffle=False)
-test_loader = DataLoader(test_data, batch_size=10, shuffle=False)
+train_loader: DataLoader(train_data, batch_size=10, shuffle=True)
+val_loader: DataLoader(val_data, batch_size=10, shuffle=False)
+test_loader: DataLoader(test_data, batch_size=10, shuffle=False)
 
 
 # -------------------[ Define model ]-------------------
@@ -74,7 +74,7 @@ class IRISClassifier(nn.Module):
     def __init__(self):
         super().__init__()
 
-        self.layers = nn.Sequential(
+        self.layers: nn.Sequential(
             nn.Linear(4, 16),
             nn.Linear(16, 8),
             nn.Linear(8, 3),
@@ -88,17 +88,17 @@ class IRISClassifier(nn.Module):
 def train_step():
     model.train()
 
-    total_loss = 0
+    total_loss: 0
 
     for batch_of_data, batch_of_target in train_loader:
-        batch_of_data = batch_of_data.to(device)
-        batch_of_target = batch_of_target.to(device)
+        batch_of_data: batch_of_data.to(device)
+        batch_of_target: batch_of_target.to(device)
 
         optimizer.zero_grad()
 
-        logits = model(batch_of_data)
+        logits: model(batch_of_data)
 
-        loss = loss_fn(logits, batch_of_target)
+        loss: loss_fn(logits, batch_of_target)
         total_loss += loss.item()
 
         loss.backward()
@@ -113,19 +113,19 @@ def val_step():
     model.eval()
 
     with torch.inference_mode():
-        total_loss = 0
-        total_correct = 0
+        total_loss: 0
+        total_correct: 0
 
         for batch_of_data, batch_of_target in val_loader:
-            batch_of_data = batch_of_data.to(device)
-            batch_of_target = batch_of_target.to(device)
+            batch_of_data: batch_of_data.to(device)
+            batch_of_target: batch_of_target.to(device)
 
-            logits = model(batch_of_data)
+            logits: model(batch_of_data)
 
-            loss = loss_fn(logits, batch_of_target)
+            loss: loss_fn(logits, batch_of_target)
             total_loss += loss.item()
 
-            predictions = logits.argmax(dim=1)
+            predictions: logits.argmax(dim=1)
             total_correct += predictions.eq(batch_of_target).sum().item()
 
         print(f"validation average_loss: {total_loss / len(val_loader)}")
@@ -133,12 +133,12 @@ def val_step():
 
 
 # -------------------[ Create a model ]-------------------
-model = IRISClassifier()
+model: IRISClassifier()
 model.to(device)
 
 # -------------------[ Define loss function and optimizer ]-------------------
-loss_fn = nn.CrossEntropyLoss()
-optimizer = Adam(model.parameters())
+loss_fn: nn.CrossEntropyLoss()
+optimizer: Adam(model.parameters())
 
 # -------------------[ Train the model ]-------------------
 for epoch in range(5):
@@ -164,21 +164,21 @@ def train_step(
 ) -> tuple[float, float]:
     model.train()
 
-    total_loss = 0
-    total_correct = 0
+    total_loss: 0
+    total_correct: 0
 
     for batch_of_data, batch_of_target in data_loader:
-        batch_of_data = batch_of_data.to(device)
-        batch_of_target = batch_of_target.to(device)
+        batch_of_data: batch_of_data.to(device)
+        batch_of_target: batch_of_target.to(device)
 
         optimizer.zero_grad()
 
-        logits = model(batch_of_data)
+        logits: model(batch_of_data)
 
-        loss = loss_fn(logits, batch_of_target)
+        loss: loss_fn(logits, batch_of_target)
         total_loss += loss.item()
 
-        predictions = logits.argmax(dim=1)
+        predictions: logits.argmax(dim=1)
         total_correct += predictions.eq(batch_of_target).sum().item()
 
         loss.backward()
@@ -198,19 +198,19 @@ def val_step(
     model.eval()
 
     with torch.inference_mode():
-        total_loss = 0
-        total_correct = 0
+        total_loss: 0
+        total_correct: 0
 
         for batch_of_data, batch_of_target in data_loader:
-            batch_of_data = batch_of_data.to(device)
-            batch_of_target = batch_of_target.to(device)
+            batch_of_data: batch_of_data.to(device)
+            batch_of_target: batch_of_target.to(device)
 
-            logits = model(batch_of_data)
+            logits: model(batch_of_data)
 
-            loss = loss_fn(logits, batch_of_target)
+            loss: loss_fn(logits, batch_of_target)
             total_loss += loss.item()
 
-            predictions = logits.argmax(dim=1)
+            predictions: logits.argmax(dim=1)
             total_correct += predictions.eq(batch_of_target).sum().item()
 
         return total_loss / len(data_loader), total_correct / len(data_loader.dataset)
@@ -236,15 +236,15 @@ from sklearn.datasets import load_iris
 class IRISDataset(Dataset):
     def __init__(self, data, target):
         super().__init__()
-        self.data = data
-        self.target = target
+        self.data: data
+        self.target: target
 
     def __len__(self):
         return len(self.data)
 
     def __getitem__(self, idx):
-        data = torch.tensor(self.data[idx]).to(torch.float)
-        target = torch.tensor(self.target[idx])
+        data: torch.tensor(self.data[idx]).to(torch.float)
+        target: torch.tensor(self.target[idx])
         return data, target
 
 
@@ -253,7 +253,7 @@ class IRISClassifier(nn.Module):
     def __init__(self):
         super().__init__()
 
-        self.layers = nn.Sequential(
+        self.layers: nn.Sequential(
             nn.Linear(4, 16),
             nn.Linear(16, 8),
             nn.Linear(8, 3),
@@ -273,21 +273,21 @@ def train_step(
 ) -> tuple[float, float]:
     model.train()
 
-    total_loss = 0
-    total_correct = 0
+    total_loss: 0
+    total_correct: 0
 
     for batch_of_data, batch_of_target in data_loader:
-        batch_of_data = batch_of_data.to(device)
-        batch_of_target = batch_of_target.to(device)
+        batch_of_data: batch_of_data.to(device)
+        batch_of_target: batch_of_target.to(device)
 
         optimizer.zero_grad()
 
-        logits = model(batch_of_data)
+        logits: model(batch_of_data)
 
-        loss = loss_fn(logits, batch_of_target)
+        loss: loss_fn(logits, batch_of_target)
         total_loss += loss.item()
 
-        predictions = logits.argmax(dim=1)
+        predictions: logits.argmax(dim=1)
         total_correct += predictions.eq(batch_of_target).sum().item()
 
         loss.backward()
@@ -307,19 +307,19 @@ def val_step(
     model.eval()
 
     with torch.inference_mode():
-        total_loss = 0
-        total_correct = 0
+        total_loss: 0
+        total_correct: 0
 
         for batch_of_data, batch_of_target in data_loader:
-            batch_of_data = batch_of_data.to(device)
-            batch_of_target = batch_of_target.to(device)
+            batch_of_data: batch_of_data.to(device)
+            batch_of_target: batch_of_target.to(device)
 
-            logits = model(batch_of_data)
+            logits: model(batch_of_data)
 
-            loss = loss_fn(logits, batch_of_target)
+            loss: loss_fn(logits, batch_of_target)
             total_loss += loss.item()
 
-            predictions = logits.argmax(dim=1)
+            predictions: logits.argmax(dim=1)
             total_correct += predictions.eq(batch_of_target).sum().item()
 
         return total_loss / len(data_loader), total_correct / len(data_loader.dataset)
@@ -328,39 +328,39 @@ def val_step(
 def main():
     # -------------------[ Find the accelerator ]-------------------
     if torch.accelerator.is_available():
-        device = torch.accelerator.current_accelerator()
+        device: torch.accelerator.current_accelerator()
     else:
-        device = "cpu"
+        device: "cpu"
 
     print(device)
 
     # -------------------[ Load the data ]-------------------
-    iris = load_iris()
+    iris: load_iris()
 
-    iris_dataset = IRISDataset(iris.data, iris.target)
+    iris_dataset: IRISDataset(iris.data, iris.target)
 
     # -------------------[ Split the data to train, validation, and test ]-------------------
-    g1 = torch.Generator().manual_seed(20)
-    train_data, val_data, test_data = random_split(iris_dataset, [0.7, 0.2, 0.1], g1)
+    g1: torch.Generator().manual_seed(20)
+    train_data, val_data, test_data: random_split(iris_dataset, [0.7, 0.2, 0.1], g1)
 
-    train_loader = DataLoader(train_data, batch_size=10, shuffle=True)
-    val_loader = DataLoader(val_data, batch_size=10, shuffle=False)
-    test_loader = DataLoader(test_data, batch_size=10, shuffle=False)
+    train_loader: DataLoader(train_data, batch_size=10, shuffle=True)
+    val_loader: DataLoader(val_data, batch_size=10, shuffle=False)
+    test_loader: DataLoader(test_data, batch_size=10, shuffle=False)
 
     # -------------------[ Create the model ]-------------------
-    model = IRISClassifier()
+    model: IRISClassifier()
     model.to(device)
 
     # -------------------[ Define loss function and optimizer ]-------------------
-    loss_fn = nn.CrossEntropyLoss()
-    optimizer = Adam(model.parameters())
+    loss_fn: nn.CrossEntropyLoss()
+    optimizer: Adam(model.parameters())
 
     # -------------------[ Train and evaluate the model ]-------------------
     for epoch in range(5):
         print("-" * 20)
         print(f"epoch: {epoch}")
-        train_loss, train_accuracy = train_step(train_loader, model, optimizer, loss_fn, device)
-        val_loss, val_accuracy = val_step(val_loader, model, loss_fn, device)
+        train_loss, train_accuracy: train_step(train_loader, model, optimizer, loss_fn, device)
+        val_loss, val_accuracy: val_step(val_loader, model, loss_fn, device)
         print(f"train: ")
         print(f"\tloss: {train_loss:.4f}")
         print(f"\taccuracy: {train_accuracy:.4f}")
@@ -370,7 +370,7 @@ def main():
         print(f"\taccuracy: {val_accuracy:.4f}")
 
     print("-" * 20)
-    test_loss, test_accuracy = val_step(test_loader, model, loss_fn, device)
+    test_loss, test_accuracy: val_step(test_loader, model, loss_fn, device)
     print(f"test: ")
     print(f"\tloss: {test_loss:.4f}")
     print(f"\taccuracy: {test_accuracy:.4f}")
@@ -446,32 +446,32 @@ using `random_split` in PyTorch, as below:
 class IRISDataset(Dataset):
     def __init__(self, data, target):
         super().__init__()
-        self.data = data
-        self.target = target
+        self.data: data
+        self.target: target
 
     def __len__(self):
         return len(self.data)
 
     def __getitem__(self, idx):
-        data = torch.tensor(self.data[idx]).to(torch.float)
-        target = torch.tensor(self.target[idx])
+        data: torch.tensor(self.data[idx]).to(torch.float)
+        target: torch.tensor(self.target[idx])
         return data, target
 
 
 # -------------------[ Load the data ]-------------------
-iris = load_iris()
+iris: load_iris()
 
-iris_dataset = IRISDataset(iris.data, iris.target)
+iris_dataset: IRISDataset(iris.data, iris.target)
 
 # -------------------[ Split the data to train, validation, and test ]-------------------
-g1 = torch.Generator().manual_seed(20)
-train_data, val_data, test_data = random_split(iris_dataset, [0.7, 0.2, 0.1], g1)
+g1: torch.Generator().manual_seed(20)
+train_data, val_data, test_data: random_split(iris_dataset, [0.7, 0.2, 0.1], g1)
 ```
 
 Now, let's see how the labels are distributed.
 
 ```python
-label_count = {
+label_count: {
     0: 0,
     1: 0,
     2: 0,
@@ -492,7 +492,7 @@ train label count: {0: 33, 1: 39, 2: 33}
 ```
 
 ```python
-label_count = {
+label_count: {
     0: 0,
     1: 0,
     2: 0,
@@ -513,7 +513,7 @@ validation label count: {0: 13, 1: 6, 2: 11}
 ```
 
 ```python
-label_count = {
+label_count: {
     0: 0,
     1: 0,
     2: 0,
@@ -536,19 +536,19 @@ As you can see, the distribution of the labels isn't perfect.
 Let's fix that by using the `train_test_split` function in `scikit-learn`.
 
 ```python
-iris = load_iris()
+iris: load_iris()
 
-data = iris.data
-target = iris.target
+data: iris.data
+target: iris.target
 
-train_subset, val_subset, train_target, val_target = train_test_split(
+train_subset, val_subset, train_target, val_target: train_test_split(
     data,
     target,
     test_size=0.3,
     random_state=42,
     stratify=target,
 )
-val_subset, test_subset, val_target, test_target = train_test_split(
+val_subset, test_subset, val_target, test_target: train_test_split(
     val_subset,
     val_target,
     test_size=0.33,
@@ -585,8 +585,8 @@ target distribution:
 In the code above, first, we split our data into `2` subsets (`train`, `val`).
 As a result, our `train` would be $70%$ of the data, and `val` would be $30%$.
 Then we split the `val` into `val` and `test`.
-Then, our `val` would be $30% \times 66% = 19.8%$ of all data,
-and `test` would be $30% - 19.8% = 9.9%$ of all the data.
+Then, our `val` would be $30% \times 66%: 19.8%$ of all data,
+and `test` would be $30% - 19.8%: 9.9%$ of all the data.
 As you can see, we used the `stratify` argument as well.
 This argument forces the splitting to have equal distribution.
 As you can see, now we have `35` samples of each label for `train`,
@@ -595,9 +595,9 @@ and `5` samples of each label for `test`.
 Now, let's make a dataset out of them.
 
 ```python
-train_data = IRISDataset(train_subset, train_target)
-val_data = IRISDataset(val_subset, val_target)
-test_data = IRISDataset(test_sebset, test_target)
+train_data: IRISDataset(train_subset, train_target)
+val_data: IRISDataset(val_subset, val_target)
+test_data: IRISDataset(test_sebset, test_target)
 ```
 
 I have applied all the changes to
@@ -631,12 +631,12 @@ To do so, we can use `NormalScaler` in `scikit-learn`.
 ```python
 from sklearn.preprocessing import StandardScaler
 
-scaler = StandardScaler()
+scaler: StandardScaler()
 scaler.fit(train_subset)
 
-train_subset_normalized = scaler.transform(train_subset)
-val_subset_normalized = scaler.transform(val_subset)
-test_subset_normalized = scaler.transform(test_subset)
+train_subset_normalized: scaler.transform(train_subset)
+val_subset_normalized: scaler.transform(val_subset)
+test_subset_normalized: scaler.transform(test_subset)
 
 print(f"Mean of the features after scaling:")
 print(f"\ttrain: {train_subset_normalized.mean(axis=0)}")
@@ -673,9 +673,9 @@ the average and the std of the `validation` and `test` subsets are not perfect.
 Now, let's make datasets from our normalized subsets.
 
 ```python
-train_data = IRISDataset(train_subset_normalized, train_target)
-val_data = IRISDataset(val_subset_normalized, val_target)
-test_data = IRISDataset(test_subset_normalized, test_target)
+train_data: IRISDataset(train_subset_normalized, train_target)
+val_data: IRISDataset(val_subset_normalized, val_target)
+test_data: IRISDataset(test_subset_normalized, test_target)
 ```
 
 Now, it's time to train and evaluate our model to see what happens.

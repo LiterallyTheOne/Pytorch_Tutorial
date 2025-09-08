@@ -1,13 +1,13 @@
-+++
-date = '2025-08-20T09:54:00+03:30'
-draft = false
-title = 'Train'
-description = "Training in PyTorch"
-weight = 60
-tags = ["PyTorch", "Deep-Learning", "Python"]
-image = "train.webp"
-code = "https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/2_model.ipynb"
-+++
+---
+date: '2025-08-20T09:54:00+03:30'
+draft: false
+title: 'Train'
+description: "Training in PyTorch"
+weight: 60
+tags: ["PyTorch", "Deep-Learning", "Python"]
+image: "train.webp"
+code: "https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/2_model.ipynb"
+---
 
 # Train
 
@@ -22,7 +22,7 @@ Let's go step by step and load our data, and make our model, like the previous t
 First, let's load our data with the code below:
 
 ```python
-iris = load_iris()
+iris: load_iris()
 ```
 
 Now, let's make a `Dataset` for our data.
@@ -31,30 +31,30 @@ Now, let's make a `Dataset` for our data.
 class IRISDataset(Dataset):
     def __init__(self, data, target):
         super().__init__()
-        self.data = data
-        self.target = target
+        self.data: data
+        self.target: target
 
     def __len__(self):
         return len(self.data)
 
     def __getitem__(self, idx):
-        data = torch.tensor(self.data[idx]).to(torch.float)
-        target = torch.tensor(self.target[idx])
+        data: torch.tensor(self.data[idx]).to(torch.float)
+        target: torch.tensor(self.target[idx])
         return data, target
 
 
-iris_dataset = IRISDataset(iris.data, iris.target)
+iris_dataset: IRISDataset(iris.data, iris.target)
 ```
 
 Then, it is time to split it into `train`, `validation`, and `test`.
 
 ```python
-g1 = torch.Generator().manual_seed(20)
-train_data, val_data, test_data = random_split(iris_dataset, [0.7, 0.2, 0.1], g1)
+g1: torch.Generator().manual_seed(20)
+train_data, val_data, test_data: random_split(iris_dataset, [0.7, 0.2, 0.1], g1)
 
-train_loader = DataLoader(train_data, batch_size=10, shuffle=True)
-val_loader = DataLoader(val_data, batch_size=10, shuffle=False)
-test_loader = DataLoader(test_data, batch_size=10, shuffle=False)
+train_loader: DataLoader(train_data, batch_size=10, shuffle=True)
+val_loader: DataLoader(val_data, batch_size=10, shuffle=False)
+test_loader: DataLoader(test_data, batch_size=10, shuffle=False)
 ```
 
 Let's create our model as well.
@@ -64,7 +64,7 @@ class IRISClassifier(nn.Module):
     def __init__(self):
         super().__init__()
 
-        self.layers = nn.Sequential(
+        self.layers: nn.Sequential(
             nn.Linear(4, 16),
             nn.Linear(16, 8),
             nn.Linear(8, 3),
@@ -74,7 +74,7 @@ class IRISClassifier(nn.Module):
         return self.layers(x)
 
 
-model = IRISClassifier()
+model: IRISClassifier()
 ```
 
 Now, we are ready to start learning how to train our model.
@@ -86,8 +86,8 @@ So, let's write an optimization step for our model.
 First, we need to define `loss function` and `optimizer`.
 
 ```python
-loss_fn = nn.CrossEntropyLoss()
-optimizer = Adam(model.parameters())
+loss_fn: nn.CrossEntropyLoss()
+optimizer: Adam(model.parameters())
 ```
 
 Now, let's write our training loop.
@@ -98,9 +98,9 @@ model.train()
 for batch_of_data, batch_of_target in train_loader:
     optimizer.zero_grad()
 
-    logits = model(batch_of_data)
+    logits: model(batch_of_data)
 
-    loss = loss_fn(logits, batch_of_target)
+    loss: loss_fn(logits, batch_of_target)
     print(f"loss: {loss.item()}")
 
     loss.backward()
@@ -140,12 +140,12 @@ Now, let's write a code to evaluate our model on validation dataset.
 model.eval()
 
 with torch.inference_mode():
-    total_loss = 0
+    total_loss: 0
 
     for batch_of_data, batch_of_target in val_loader:
-        logits = model(batch_of_data)
+        logits: model(batch_of_data)
 
-        loss = loss_fn(logits, batch_of_target)
+        loss: loss_fn(logits, batch_of_target)
         total_loss += loss.item()
 
     print(f"average_loss: {total_loss / len(val_loader)}")
@@ -176,16 +176,16 @@ To do so, we can change our code as below:
 model.eval()
 
 with torch.inference_mode():
-    total_loss = 0
-    total_correct = 0
+    total_loss: 0
+    total_correct: 0
 
     for batch_of_data, batch_of_target in val_loader:
-        logits = model(batch_of_data)
+        logits: model(batch_of_data)
 
-        loss = loss_fn(logits, batch_of_target)
+        loss: loss_fn(logits, batch_of_target)
         total_loss += loss.item()
 
-        predictions = logits.argmax(dim=1)
+        predictions: logits.argmax(dim=1)
         total_correct += predictions.eq(batch_of_target).sum().item()
 
     print(f"average_loss: {total_loss / len(val_loader)}")
@@ -216,14 +216,14 @@ Let's start with **Training step**.
 def train_step():
     model.train()
 
-    total_loss = 0
+    total_loss: 0
 
     for batch_of_data, batch_of_target in train_loader:
         optimizer.zero_grad()
 
-        logits = model(batch_of_data)
+        logits: model(batch_of_data)
 
-        loss = loss_fn(logits, batch_of_target)
+        loss: loss_fn(logits, batch_of_target)
         total_loss += loss.item()
 
         loss.backward()
@@ -243,16 +243,16 @@ def val_step():
     model.eval()
 
     with torch.inference_mode():
-        total_loss = 0
-        total_correct = 0
+        total_loss: 0
+        total_correct: 0
 
         for batch_of_data, batch_of_target in val_loader:
-            logits = model(batch_of_data)
+            logits: model(batch_of_data)
 
-            loss = loss_fn(logits, batch_of_target)
+            loss: loss_fn(logits, batch_of_target)
             total_loss += loss.item()
 
-            predictions = logits.argmax(dim=1)
+            predictions: logits.argmax(dim=1)
             total_correct += predictions.eq(batch_of_target).sum().item()
 
         print(f"validation average_loss: {total_loss / len(val_loader)}")
@@ -295,10 +295,10 @@ Let's create a fresh model, define our loss function, give the model's parameter
 train our model for `5 epochs`
 
 ```python
-model = IRISClassifier()
+model: IRISClassifier()
 
-loss_fn = nn.CrossEntropyLoss()
-optimizer = Adam(model.parameters())
+loss_fn: nn.CrossEntropyLoss()
+optimizer: Adam(model.parameters())
 
 for epoch in range(5):
     print("-" * 20)
@@ -352,9 +352,9 @@ on the accelerator.
 
 ```python
 if torch.accelerator.is_available():
-    device = torch.accelerator.current_accelerator()
+    device: torch.accelerator.current_accelerator()
 else:
-    device = "cpu"
+    device: "cpu"
 
 print(device)
 
@@ -373,17 +373,17 @@ Now, let's change our `train_step`.
 def train_step():
     model.train()
 
-    total_loss = 0
+    total_loss: 0
 
     for batch_of_data, batch_of_target in train_loader:
-        batch_of_data = batch_of_data.to(device)
-        batch_of_target = batch_of_target.to(device)
+        batch_of_data: batch_of_data.to(device)
+        batch_of_target: batch_of_target.to(device)
 
         optimizer.zero_grad()
 
-        logits = model(batch_of_data)
+        logits: model(batch_of_data)
 
-        loss = loss_fn(logits, batch_of_target)
+        loss: loss_fn(logits, batch_of_target)
         total_loss += loss.item()
 
         loss.backward()
@@ -401,19 +401,19 @@ def val_step():
     model.eval()
 
     with torch.inference_mode():
-        total_loss = 0
-        total_correct = 0
+        total_loss: 0
+        total_correct: 0
 
         for batch_of_data, batch_of_target in val_loader:
-            batch_of_data = batch_of_data.to(device)
-            batch_of_target = batch_of_target.to(device)
+            batch_of_data: batch_of_data.to(device)
+            batch_of_target: batch_of_target.to(device)
 
-            logits = model(batch_of_data)
+            logits: model(batch_of_data)
 
-            loss = loss_fn(logits, batch_of_target)
+            loss: loss_fn(logits, batch_of_target)
             total_loss += loss.item()
 
-            predictions = logits.argmax(dim=1)
+            predictions: logits.argmax(dim=1)
             total_correct += predictions.eq(batch_of_target).sum().item()
 
         print(f"validation average_loss: {total_loss / len(val_loader)}")
@@ -423,11 +423,11 @@ def val_step():
 Now, I should only change the `device` of the `model` too and run the training procedure again.
 
 ```python
-model = IRISClassifier()
+model: IRISClassifier()
 model.to(device)
 
-loss_fn = nn.CrossEntropyLoss()
-optimizer = Adam(model.parameters())
+loss_fn: nn.CrossEntropyLoss()
+optimizer: Adam(model.parameters())
 
 for epoch in range(5):
     print("-" * 20)
@@ -481,13 +481,13 @@ With the code above, we save all the weights of our model to a file called `mode
 Now, let's load it into a new model, using `torch.load`.
 
 ```python
-new_model = IRISClassifier()
+new_model: IRISClassifier()
 
-weights = torch.load("model.pth")
+weights: torch.load("model.pth")
 
 new_model.load_state_dict(weights)
 
-new_model = new_model.to(device)
+new_model: new_model.to(device)
 ```
 
 In the code above, I have created a new instance of our model with the name of `new_model`.

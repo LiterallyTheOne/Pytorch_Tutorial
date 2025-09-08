@@ -1,13 +1,13 @@
-+++
-date = '2025-08-18T12:09:00+03:30'
-draft = false
-title = 'AutoGrad, loss function, and optimizer'
-description = "AutoGrad, loss function, and optimizer in PyTorch"
-weight = 50
-tags = ["PyTorch", "Deep-Learning", "Python"]
-image = "autograd-loss-optimizer.webp"
-code = "https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/2_model.ipynb"
-+++
+---
+date: '2025-08-18T12:09:00+03:30'
+draft: false
+title: 'AutoGrad, loss function, and optimizer'
+description: "AutoGrad, loss function, and optimizer in PyTorch"
+weight: 50
+tags: ["PyTorch", "Deep-Learning", "Python"]
+image: "autograd-loss-optimizer.webp"
+code: "https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/2_model.ipynb"
+---
 
 # AutoGrad, loss function, and optimizer
 
@@ -24,10 +24,10 @@ One of the fundamental parts of each `Tensor` in `PyTorch` is that they can stor
 Let's define an equation with some tensors:
 
 ```python
-a = torch.tensor(3.0, requires_grad=True)
-b = torch.tensor(2.0, requires_grad=True)
+a: torch.tensor(3.0, requires_grad=True)
+b: torch.tensor(2.0, requires_grad=True)
 
-y = a ** 2 + b
+y: a ** 2 + b
 ```
 
 In the code above, we have tensor `a` and tensor `b` with the values of `3` and `2`.
@@ -53,8 +53,8 @@ function for `y`.
 ```python
 y.backward()
 
-print("dy/da: ", a.grad.item())  # d(a**2 + b)/da = 2*a ----a=3----> 6
-print("dy/db: ", b.grad.item())  # d(a**2+b)/db = 1
+print("dy/da: ", a.grad.item())  # d(a**2 + b)/da: 2*a ----a=3----> 6
+print("dy/db: ", b.grad.item())  # d(a**2+b)/db: 1
 
 """
 --------
@@ -80,15 +80,15 @@ Now, let's have another example that is closer to what we want to do
 in **Deep Learning**.
 
 ```python
-w = torch.tensor(5.0, requires_grad=True)  # weight
-b = torch.tensor(2.0, requires_grad=True)  # bias
+w: torch.tensor(5.0, requires_grad=True)  # weight
+b: torch.tensor(2.0, requires_grad=True)  # bias
 
-x = 2  # input
-y_true = 7  # true output
+x: 2  # input
+y_true: 7  # true output
 
-y_hat = w * x + b  # prediction
+y_hat: w * x + b  # prediction
 
-loss = (y_hat - y_true) ** 2  # calculate loss
+loss: (y_hat - y_true) ** 2  # calculate loss
 loss.backward()  # calculate gradients
 
 print(f"d(loss)/dw: {w.grad.item()}")
@@ -156,14 +156,14 @@ If you want to know more about `CrossEntropyLoss`, you can check out this link:
 Now, let's define our loss function and test it to see how it works.
 
 ```python
-y_true = torch.tensor([0, 1])
-y = torch.tensor([
+y_true: torch.tensor([0, 1])
+y: torch.tensor([
     [2.0, 8.0],
     [5.0, 5.0],
 ])
 
-loss_fn = nn.CrossEntropyLoss()
-loss = loss_fn(y, y_true)
+loss_fn: nn.CrossEntropyLoss()
+loss: loss_fn(y, y_true)
 
 print(loss.item())
 
@@ -182,14 +182,14 @@ So, the loss output is not equal to zero.
 If I want my loss output to be zero, my predictions should look something like this:
 
 ```python
-y_true = torch.tensor([0, 1])
-y = torch.tensor([
+y_true: torch.tensor([0, 1])
+y: torch.tensor([
     [100.0, 0.0],
     [0.0, 100.0]
 ])
 
-loss_fn = nn.CrossEntropyLoss()
-loss = loss_fn(y, y_true)
+loss_fn: nn.CrossEntropyLoss()
+loss: loss_fn(y, y_true)
 
 print(loss.item())
 
@@ -218,9 +218,9 @@ Let's define a simple model and make an `optimizer`.
 ```python
 from torch.optim import Adam
 
-model = nn.Linear(4, 2)
+model: nn.Linear(4, 2)
 
-optimizer = Adam(model.parameters())
+optimizer: Adam(model.parameters())
 ```
 
 In the code above, we have a simple linear model.
@@ -229,18 +229,18 @@ We gave the parameters of that model to our `optimizer`.
 So, for each step of `optimization`, we should do something like below:
 
 ```python
-x = torch.tensor([
+x: torch.tensor([
     [1.0, 2.0, 3.0, 4.0],
     [-1.0, -2.0, -3.0, -4.0],
 ])  # simple data
-y_true = torch.tensor([0, 1])  # simple targe
+y_true: torch.tensor([0, 1])  # simple targe
 
 for step in range(10):
     optimizer.zero_grad()  # clear the gradients
 
-    logits = model(x)  # make a prediction
+    logits: model(x)  # make a prediction
 
-    loss = loss_fn(logits, y_true)  # calculate the loss
+    loss: loss_fn(logits, y_true)  # calculate the loss
     print(f"step {step}, loss: {loss.item()}")
 
     loss.backward()  # calculate the gradients with respect to loss

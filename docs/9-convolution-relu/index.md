@@ -1,13 +1,13 @@
-+++
-date = '2025-08-30T08:00:00+03:30'
-draft = false
-title = 'Convolution and ReLU'
-description = "Explaning about convolution and ReLU"
-weight = 100
-tags = ["PyTorch", "TorchVision", "Deep-Learning", "Python", "matplotlib"]
-image = "convolution-and-relu.webp"
-code = "https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/9_convolution_and_relu"
-+++
+---
+date: '2025-08-30T08:00:00+03:30'
+draft: false
+title: 'Convolution and ReLU'
+description: "Explaning about convolution and ReLU"
+weight: 100
+tags: ["PyTorch", "TorchVision", "Deep-Learning", "Python", "matplotlib"]
+image: "convolution-and-relu.webp"
+code: "https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/9_convolution_and_relu"
+---
 
 # Convolution and ReLU
 
@@ -27,11 +27,11 @@ Let's explain its concepts using an example.
 In our example, we have a `6x6` image, and our kernel is `3x3`, like below:
 
 ```python
-image_size = (6, 6)
-kernel_size = (3, 3)
+image_size: (6, 6)
+kernel_size: (3, 3)
 
-image = np.arange(image_size[0] * image_size[1]).reshape(image_size)
-kernel = np.ones(kernel_size) / (kernel_size[0] * kernel_size[1])
+image: np.arange(image_size[0] * image_size[1]).reshape(image_size)
+kernel: np.ones(kernel_size) / (kernel_size[0] * kernel_size[1])
 
 print("image:")
 print(image)
@@ -198,21 +198,21 @@ $$
 Now, let's load **MNIST** again like we did in the previous tutorial.
 
 ```python
-train_data = MNIST("data/", train=True, download=True, transform=transforms.ToTensor())
-test_data = MNIST("data/", train=False, download=True, transform=transforms.ToTensor())
+train_data: MNIST("data/", train=True, download=True, transform=transforms.ToTensor())
+test_data: MNIST("data/", train=False, download=True, transform=transforms.ToTensor())
 ```
 
 Now let's make `train`, `validation`, and `test` data loaders and see the shape of a batch of our data.
 
 ```python
-g1 = torch.Generator().manual_seed(20)
-val_data, test_data = random_split(test_data, [0.7, 0.3], g1)
+g1: torch.Generator().manual_seed(20)
+val_data, test_data: random_split(test_data, [0.7, 0.3], g1)
 
-train_loader = DataLoader(train_data, batch_size=64, shuffle=True)
-val_loader = DataLoader(val_data, batch_size=64, shuffle=False)
-test_loader = DataLoader(test_data, batch_size=64, shuffle=False)
+train_loader: DataLoader(train_data, batch_size=64, shuffle=True)
+val_loader: DataLoader(val_data, batch_size=64, shuffle=False)
+test_loader: DataLoader(test_data, batch_size=64, shuffle=False)
 
-images, labels = next(iter(train_loader))
+images, labels: next(iter(train_loader))
 
 print(f"images shape : {images.shape}")
 print(f"labels shape : {labels.shape}")
@@ -236,7 +236,7 @@ Now, let's talk about how to use it in **PyTorch**.
 We can define a `Convolution layer` in **PyTorch** like below:
 
 ```python
-conv_1 = nn.Conv2d(
+conv_1: nn.Conv2d(
     in_channels=1,
     out_channels=3,
     kernel_size=3,
@@ -254,7 +254,7 @@ As you can see, we have control over `stride`, `padding`, and `dilation`.
 Now, let's feed our loaded images to `conv_1`, to see what happens.
 
 ```python
-result = conv_1(images)
+result: conv_1(images)
 print(f"input shape : {images.shape}")
 print(f"output shape : {result.shape}")
 
@@ -280,20 +280,20 @@ It only changes the negative values to `0`.
 Here is its formula:
 
 $$
-ReLU(x) = max(0, x)
+ReLU(x): max(0, x)
 $$
 
 We can define `ReLU` in **PyTorch** as below:
 
 ```python
-relu = nn.ReLU()
+relu: nn.ReLU()
 ```
 
 Now let's test it to see how it works:
 
 ```python
-a1 = torch.arange(-5, 6)
-result = relu(a1)
+a1: torch.arange(-5, 6)
+result: relu(a1)
 
 print(f"input: {a1}")
 print(f"output: {result}")
@@ -318,14 +318,14 @@ and feed it to our **linear layers** in order to classify them.
 We can define a `Flatten` layer in **PyTorch** like below:
 
 ```python
-flatten = nn.Flatten()
+flatten: nn.Flatten()
 ```
 
 Now, let's test it to see if it works as intended.
 
 ```python
-a2 = torch.arange(0, 16).reshape((2, 2, 4)).unsqueeze(0)
-result = flatten(a2)
+a2: torch.arange(0, 16).reshape((2, 2, 4)).unsqueeze(0)
+result: flatten(a2)
 
 print(f"input: {a2}")
 print(f"input shape : {a2.shape}")
@@ -366,7 +366,7 @@ class IRISClassifier(nn.Module):
     def __init__(self):
         super().__init__()
 
-        self.conv_layers = nn.Sequential(
+        self.conv_layers: nn.Sequential(
             nn.Conv2d(in_channels=1, out_channels=32, kernel_size=3, padding=1, stride=2),  # 32x14x14
             nn.ReLU(),
             nn.Conv2d(in_channels=32, out_channels=64, kernel_size=3, padding=1, stride=2),  # 64x7x7
@@ -375,7 +375,7 @@ class IRISClassifier(nn.Module):
             nn.ReLU(),
         )
 
-        self.classification_layers = nn.Sequential(
+        self.classification_layers: nn.Sequential(
             nn.Flatten(),
             nn.Linear(128 * 3 * 3, 128),
             nn.ReLU(),
@@ -383,8 +383,8 @@ class IRISClassifier(nn.Module):
         )
 
     def forward(self, x):
-        x = self.conv_layers(x)
-        x = self.classification_layers(x)
+        x: self.conv_layers(x)
+        x: self.classification_layers(x)
         return x
 ```
 
@@ -442,7 +442,7 @@ And the last **linear layer** takes $128$ as its input shape and outputs the $10
 Now, let's give a batch of **MNIST** images to see if it works or not:
 
 ```python
-model = IRISClassifier()
+model: IRISClassifier()
 model(images)
 
 """

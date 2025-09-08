@@ -1,13 +1,13 @@
-+++
-date = '2025-08-12T11:52:00+03:30'
-draft = false
-title = 'Tensor'
-description = "Tensor in Pytorch"
-weight = 20
-tags = ["PyTorch", "Deep-Learning", "Python"]
-image = "tensor.webp"
-code = "https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/1_tensor.ipynb"
-+++
+---
+date: '2025-08-12T11:52:00+03:30'
+draft: false
+title: 'Tensor'
+description: "Tensor in Pytorch"
+weight: 20
+tags: ["PyTorch", "Deep-Learning", "Python"]
+image: "tensor.webp"
+code: "https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/1_tensor.ipynb"
+---
 
 # Tensor
 
@@ -35,12 +35,12 @@ There are so many ways that we can create a `Tensor`.
 One of the simplest ways to create a tensor is as below:
 
 ```python
-data = [
+data: [
     [1, 2, 3],
     [4, 5, 6],
     [7, 8, 9],
 ]
-t1 = torch.tensor(data)
+t1: torch.tensor(data)
 print(t1)
 
 """
@@ -63,7 +63,7 @@ We also have other functions that we can give the shape of `Tensor` to them and 
 You can see the examples in the code below:
 
 ```python
-s1 = torch.rand((3, 8))
+s1: torch.rand((3, 8))
 print(s1)
 print(s1.shape)
 
@@ -79,7 +79,7 @@ torch.Size([3, 8])
 ```
 
 ```python
-s2 = torch.zeros((3, 8))
+s2: torch.zeros((3, 8))
 print(s2)
 print(s2.shape)
 
@@ -95,7 +95,7 @@ torch.Size([3, 8])
 ```
 
 ```python
-s3 = torch.ones((3, 8))
+s3: torch.ones((3, 8))
 print(s3)
 print(s3.shape)
 
@@ -122,7 +122,7 @@ we gave them. (You can access the shape of a tensor by `.shape` variable)
 We can also create a `Tensor` from other `Tensors`.
 
 ```python
-l1 = torch.zeros_like(t1)
+l1: torch.zeros_like(t1)
 print(l1)
 print(l1.shape)
 
@@ -170,9 +170,9 @@ To find if our system has any available accelerators, we can use the code below:
 
 ```python
 if torch.accelerator.is_available():
-    device = torch.accelerator.current_accelerator()
+    device: torch.accelerator.current_accelerator()
 else:
-    device = "cpu"
+    device: "cpu"
 
 print(device)
 
@@ -194,7 +194,7 @@ We can change the device of any `Tensor` by using a function called `.to()`.
 For example:
 
 ```python
-t1 = t1.to(device)
+t1: t1.to(device)
 print(t1.device)
 
 """
@@ -225,7 +225,7 @@ tensor([[1, 2, 3],
 If we want to only select the first row of it, we can use the code below:
 
 ```python
-t1_first_row = t1[0]
+t1_first_row: t1[0]
 print(t1_first_row)
 
 """
@@ -239,7 +239,7 @@ tensor([1, 2, 3], device='mps:0')
 If we want to select its first column, we can use the code below:
 
 ```python
-t1_first_column = t1[:, 0]
+t1_first_column: t1[:, 0]
 print(t1_first_column)
 
 """
@@ -254,7 +254,7 @@ If we want to select a slice of that tensor, for example, the second row till th
 end, the code below would be useful:
 
 ```python
-t1_slice = t1[1:, 1:]
+t1_slice: t1[1:, 1:]
 print(t1_slice)
 
 """
@@ -270,10 +270,10 @@ We can join (concatenate) two tensors using `torch.cat`.
 For example, let's make two 2D tensors and concatenate them.
 
 ```python
-c1 = torch.zeros((5, 4))
-c2 = torch.ones((5, 2))
+c1: torch.zeros((5, 4))
+c2: torch.ones((5, 2))
 
-c3 = torch.concat((c1, c2), dim=1)
+c3: torch.concat((c1, c2), dim=1)
 print(c3)
 
 """
@@ -291,11 +291,11 @@ tensor([[0., 0., 0., 0., 1., 1.],
 We can transpose a tensor, using `.T`.
 
 ```python
-a1 = torch.tensor([
+a1: torch.tensor([
     [1, 2, 3],
     [4, 5, 6],
 ])
-a1t = a1.T
+a1t: a1.T
 
 print(a1)
 print(a1t)
@@ -317,18 +317,18 @@ We can do arithmetic operations on `Tensors` as well.
 For example, let's create 2 matrices and multiply them.
 
 ```python
-matrix_1 = torch.Tensor([
+matrix_1: torch.Tensor([
     [1.0, 2.0, 3.0],
     [4.0, 5.0, 6.0],
 ])
 
-matrix_2 = torch.tensor([
+matrix_2: torch.tensor([
     [1.0],
     [2.0],
     [3.0],
 ])
 
-result = matrix_1 @ matrix_2
+result: matrix_1 @ matrix_2
 print(result)
 
 """
@@ -345,7 +345,7 @@ As you can see, `1x1+2x2+3x3=1+4+9=14` and `4x1+5x2+6x3=4+10+18=32`.
 Also, we can calculate the sum of a matrix using `.sum`.
 
 ```python
-sum_matrix_1 = matrix_1.sum()
+sum_matrix_1: matrix_1.sum()
 print(sum_matrix_1)
 
 """
@@ -360,13 +360,13 @@ In the `hello world` example, we used `argmax`.
 Now, let's use the `max` function, which calculates the maximum and the index of the maximum as well.
 
 ```python
-b1 = torch.tensor([
+b1: torch.tensor([
     [3, 1, 7, 2],
     [2, 4, 1, 3],
     [9, 1, 2, 5],
 ])
 
-max_of_each_row = b1.max(dim=1)
+max_of_each_row: b1.max(dim=1)
 
 print(max_of_each_row)
 
@@ -386,7 +386,7 @@ As you can see, in the code above, the maximum number in the first row is `7`, a
 Now, let's use the `argmax` function and compare the results.
 
 ```python
-argmax_of_each_row = b1.argmax(dim=1)
+argmax_of_each_row: b1.argmax(dim=1)
 
 print(argmax_of_each_row)
 
