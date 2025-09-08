@@ -399,11 +399,11 @@ Its kernel size is `3` with padding `1` and a stride of `2`, so we can calculate
 $$
 W_{out}=\frac{(W_{in}+2P_w-K_w)}{S_w} + 1
 \rightarrow \frac{(28+2 \times 1 - 3)}{2}+1=13+1
-\rightarrow \fbox{W_{out}=14}
+\rightarrow \boxed{W_{out}=14}
 \\\\
 H_{out}=\frac{(H_{in}+2P_h-K_h)}{S_h} + 1
 \rightarrow \frac{(28+2 \times 1 - 3)}{2}+1=13+1
-\rightarrow \fbox{H_{out}=14}
+\rightarrow \boxed{H_{out}=14}
 $$
 
 For the second convolution, we take $32$ channels and make $64$ channels.
@@ -413,11 +413,11 @@ So, we can calculate the output shape as below:
 $$
 W_{out}=\frac{(W_{in}+2P_w-K_w)}{S_w} + 1
 \rightarrow \frac{(14 + 2 \times 1 - 3)}{2}+1=6+1
-\rightarrow \fbox{W_{out}=7}
+\rightarrow \boxed{W_{out}=7}
 \\\\
 H_{out}=\frac{(H_{in}+2P_h-K_h)}{S_h} + 1
 \rightarrow \frac{(14 + 2 \times 1 - 3)}{2}+1=6+1
-\rightarrow \fbox{H_{out}=7}
+\rightarrow \boxed{H_{out}=7}
 $$
 
 And the third convolution has `64` input channels and makes `128` output channels.
@@ -427,11 +427,11 @@ So, let's calculate the output shape of this convolution to:
 $$
 W_{out}=\frac{(W_{in}+2P_w-K_w)}{S_w} + 1
 \rightarrow \frac{(7 + 2 \times 1 - 3)}{3}+1=2+1
-\rightarrow \fbox{W_{out}=3}
+\rightarrow \boxed{W_{out}=3}
 \\\\
 H_{out}=\frac{(H_{in}+2P_h-K_h)}{S_h} + 1
 \rightarrow \frac{(7 + 2 \times 1 - 3)}{3}+1=2+1
-\rightarrow \fbox{H_{out}=3}
+\rightarrow \boxed{H_{out}=3}
 $$
 
 Our classification layer has 2 **linear layers**.
