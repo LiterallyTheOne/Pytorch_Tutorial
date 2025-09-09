@@ -86,7 +86,9 @@ For now, we can calculate it like below:
 
 $$
 W_{out}=(W_{in}-K_{w}) + 1
-\\\\
+$$
+
+$$
 H_{out}=(H_{in}-K_{h}) + 1
 $$
 
@@ -113,7 +115,9 @@ We can calculate the output's shape as below:
 
 $$
 W_{out}=\frac{(W_{in}-K_{w})}{S_{w}} + 1
-\\\\
+$$
+
+$$
 H_{out}=\frac{(H_{in}-K_{h})}{S_{h}} + 1
 $$
 
@@ -139,7 +143,9 @@ We can calculate the output size as below:
 
 $$
 W_{out}=\frac{(W_{in}+2P_w-K_w)}{S_w} + 1
-\\\\
+$$
+
+$$
 H_{out}=\frac{(H_{in}+2P_h-K_h)}{S_h} + 1
 $$
 
@@ -182,7 +188,9 @@ We can calculate the output shape with the formula below:
 
 $$
 W_{out}=\frac{(W_{in}+2P_w - D_w \times (K_w - 1) -1)}{S_w} + 1
-\\\\
+$$
+
+$$
 H_{out}=\frac{(H_{in}+2P_h - D_h \times (K_h - 1) -1)}{S_h} + 1
 $$
 
@@ -400,7 +408,9 @@ $$
 W_{out}=\frac{(W_{in}+2P_w-K_w)}{S_w} + 1
 \rightarrow \frac{(28+2 \times 1 - 3)}{2}+1=13+1
 \rightarrow \boxed{W_{out}=14}
-\\\\
+$$
+
+$$
 H_{out}=\frac{(H_{in}+2P_h-K_h)}{S_h} + 1
 \rightarrow \frac{(28+2 \times 1 - 3)}{2}+1=13+1
 \rightarrow \boxed{H_{out}=14}
@@ -414,7 +424,7 @@ $$
 W_{out}=\frac{(W_{in}+2P_w-K_w)}{S_w} + 1
 \rightarrow \frac{(14 + 2 \times 1 - 3)}{2}+1=6+1
 \rightarrow \boxed{W_{out}=7}
-\\\\
+$$
 H_{out}=\frac{(H_{in}+2P_h-K_h)}{S_h} + 1
 \rightarrow \frac{(14 + 2 \times 1 - 3)}{2}+1=6+1
 \rightarrow \boxed{H_{out}=7}
@@ -428,7 +438,9 @@ $$
 W_{out}=\frac{(W_{in}+2P_w-K_w)}{S_w} + 1
 \rightarrow \frac{(7 + 2 \times 1 - 3)}{3}+1=2+1
 \rightarrow \boxed{W_{out}=3}
-\\\\
+$$
+
+$$
 H_{out}=\frac{(H_{in}+2P_h-K_h)}{S_h} + 1
 \rightarrow \frac{(7 + 2 \times 1 - 3)}{3}+1=2+1
 \rightarrow \boxed{H_{out}=3}
