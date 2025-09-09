@@ -1,13 +1,13 @@
-+++
-date = '2025-08-27T11:28:00+03:30'
-draft = false
-title = 'Plot and TensorBoard'
-description = "explaining how to plot our training and validation results also how to use tensorboard"
-weight = 80
-tags = ["PyTorch", "Deep-Learning", "Python", "TensorBoard", "matplotlib"]
-image = "plot-tensorboard.webp"
-code = "https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/7-plot-tensorboard"
-+++
+---
+date: '2025-08-27T11:28:00+03:30'
+draft: false
+title: 'Plot and TensorBoard'
+description: "explaining how to plot our training and validation results also how to use tensorboard"
+weight: 80
+tags: ["PyTorch", "Deep-Learning", "Python", "TensorBoard", "matplotlib"]
+image: "plot-tensorboard.webp"
+code: "https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/7-plot-tensorboard"
+---
 
 # Plot and TensorBoard
 

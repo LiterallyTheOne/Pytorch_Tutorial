@@ -1,13 +1,13 @@
-+++
-date = '2025-08-12T11:52:00+03:30'
-draft = false
-title = 'Tensor'
-description = "Tensor in Pytorch"
-weight = 20
-tags = ["PyTorch", "Deep-Learning", "Python"]
-image = "tensor.webp"
-code = "https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/1_tensor.ipynb"
-+++
+---
+date: '2025-08-12T11:52:00+03:30'
+draft: false
+title: 'Tensor'
+description: "Tensor in Pytorch"
+weight: 20
+tags: ["PyTorch", "Deep-Learning", "Python"]
+image: "tensor.webp"
+code: "https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/1_tensor.ipynb"
+---
 
 # Tensor
 

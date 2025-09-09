@@ -1,13 +1,13 @@
-+++
-date = '2025-08-18T12:09:00+03:30'
-draft = false
-title = 'AutoGrad, loss function, and optimizer'
-description = "AutoGrad, loss function, and optimizer in PyTorch"
-weight = 50
-tags = ["PyTorch", "Deep-Learning", "Python"]
-image = "autograd-loss-optimizer.webp"
-code = "https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/2_model.ipynb"
-+++
+---
+date: '2025-08-18T12:09:00+03:30'
+draft: false
+title: 'AutoGrad, loss function, and optimizer'
+description: "AutoGrad, loss function, and optimizer in PyTorch"
+weight: 50
+tags: ["PyTorch", "Deep-Learning", "Python"]
+image: "autograd-loss-optimizer.webp"
+code: "https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/2_model.ipynb"
+---
 
 # AutoGrad, loss function, and optimizer
 

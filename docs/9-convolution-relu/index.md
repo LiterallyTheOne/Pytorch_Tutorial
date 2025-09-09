@@ -1,13 +1,13 @@
-+++
-date = '2025-08-30T08:00:00+03:30'
-draft = false
-title = 'Convolution and ReLU'
-description = "Explaning about convolution and ReLU"
-weight = 100
-tags = ["PyTorch", "TorchVision", "Deep-Learning", "Python", "matplotlib"]
-image = "convolution-and-relu.webp"
-code = "https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/9_convolution_and_relu"
-+++
+---
+date: '2025-08-30T08:00:00+03:30'
+draft: false
+title: 'Convolution and ReLU'
+description: "Explaning about convolution and ReLU"
+weight: 100
+tags: ["PyTorch", "TorchVision", "Deep-Learning", "Python", "matplotlib"]
+image: "convolution-and-relu.webp"
+code: "https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/9_convolution_and_relu"
+---
 
 # Convolution and ReLU
 
