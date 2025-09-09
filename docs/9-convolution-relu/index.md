@@ -425,6 +425,8 @@ W_{out}=\frac{(W_{in}+2P_w-K_w)}{S_w} + 1
 \rightarrow \frac{(14 + 2 \times 1 - 3)}{2}+1=6+1
 \rightarrow \boxed{W_{out}=7}
 $$
+
+$$
 H_{out}=\frac{(H_{in}+2P_h-K_h)}{S_h} + 1
 \rightarrow \frac{(14 + 2 \times 1 - 3)}{2}+1=6+1
 \rightarrow \boxed{H_{out}=7}
