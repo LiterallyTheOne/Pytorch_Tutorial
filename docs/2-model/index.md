@@ -1,13 +1,13 @@
----
-date: '2025-08-17T08:10:00+03:30'
-draft: false
-title: 'Model'
-description: "Model in Pytorch"
-weight: 30
-tags: ["PyTorch", "Deep-Learning", "Python"]
-image: "model.webp"
-code: "https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/2_model.ipynb"
----
++++
+date = '2025-08-17T08:10:00+03:30'
+draft = false
+title = 'Model'
+description = "Model in Pytorch"
+weight = 30
+tags = ["PyTorch", "Deep-Learning", "Python"]
+image = "model.webp"
+code = "https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/2_model.ipynb"
++++
 
 # Model
 
@@ -20,7 +20,7 @@ have 8 features, and produced output of 4 features.
 
 ```python
 # -------------------[ Model ]-------------------
-model: nn.Linear(8, 4)  # (features, number_of_classes)
+model = nn.Linear(8, 4)  # (features, number_of_classes)
 ```
 
 ![PyTorch hello world model](model-8-4.webp)
@@ -34,7 +34,7 @@ One of the ways that we can stack up some layers in **PyTorch** is by using
 So, let's make our model a little bit more complicated, like below:
 
 ```python
-model_2: nn.Sequential(
+model_2 = nn.Sequential(
     nn.Linear(8, 16),
     nn.Linear(16, 4),
 )
@@ -59,8 +59,8 @@ So, for this model we have:
 Now, let's make some random data and see if it works correctly or not.
 
 ```python
-data: torch.rand((3, 8))
-result: model_2(data)
+data = torch.rand((3, 8))
+result = model_2(data)
 
 print(result)
 
@@ -77,7 +77,7 @@ As you could see, we have the output in a way that we wanted, and the model is f
 Now, let's make 2 hidden layers.
 
 ```python
-model_3: nn.Sequential(
+model_3 = nn.Sequential(
     nn.Linear(8, 16),
     nn.Linear(16, 32),
     nn.Linear(32, 4),
@@ -91,8 +91,8 @@ One with 16 neurons and the other with 32 neurons.
 Let's test this model as well to see if it functions correctly.
 
 ```python
-data: torch.rand((3, 8))
-result: model_3(data)
+data = torch.rand((3, 8))
+result = model_3(data)
 
 print(result)
 
@@ -119,14 +119,14 @@ class MyModel(nn.Module):
     def __init__(self):
         super().__init__()
 
-        self.layers: nn.Sequential(
+        self.layers = nn.Sequential(
             nn.Linear(8, 16),
             nn.Linear(16, 32),
             nn.Linear(32, 4),
         )
 
     def forward(self, x):
-        x: self.layers(x)
+        x = self.layers(x)
         return x
 
 ```
@@ -136,7 +136,7 @@ We put the layers in `__init__` function and put the way that we want to process
 Let's create an instance of that model and print it.
 
 ```python
-my_model: MyModel()
+my_model = MyModel()
 
 print(my_model)
 
@@ -158,9 +158,9 @@ As you can see, it shows the layers that we have created.
 So, let's create some random data and feed it to our model to see if it functions correctly.
 
 ```python
-data: torch.rand((3, 8))
+data = torch.rand((3, 8))
 
-result: my_model(data)
+result = my_model(data)
 print(result)
 
 """
@@ -180,19 +180,19 @@ class MyModel2(nn.Module):
     def __init__(self):
         super().__init__()
 
-        self.layers_1: nn.Sequential(
+        self.layers_1 = nn.Sequential(
             nn.Linear(8, 16),
             nn.Linear(16, 32),
         )
 
-        self.layers_2: nn.Sequential(
+        self.layers_2 = nn.Sequential(
             nn.Linear(32, 16),
             nn.Linear(16, 4),
         )
 
     def forward(self, x):
-        x: self.layers_1(x)
-        x: self.layers_2(x)
+        x = self.layers_1(x)
+        x = self.layers_2(x)
         return x
 ```
 
@@ -201,7 +201,7 @@ When we give data to this model, at first it goes through `layers_1` and then `l
 Let's create an instance of this model and print it.
 
 ```python
-my_model_2: MyModel2()
+my_model_2 = MyModel2()
 
 print(my_model_2)
 
@@ -226,9 +226,9 @@ MyModel2(
 Now let's test it to see if it functions correctly.
 
 ```python
-data: torch.rand((3, 8))
+data = torch.rand((3, 8))
 
-result: my_model_2(data)
+result = my_model_2(data)
 print(result)
 
 """
@@ -250,9 +250,9 @@ To do so, we can use the code below:
 
 ```python
 if torch.accelerator.is_available():
-    device: torch.accelerator.current_accelerator()
+    device = torch.accelerator.current_accelerator()
 else:
-    device: "cpu"
+    device = "cpu"
 
 print(device)
 
@@ -269,13 +269,13 @@ Now, we should cast both the **data** and the **model** to the device that we ha
 To make the code more clean, I have created them again.
 
 ```python
-data: torch.rand((3, 8))
-my_model_2: MyModel2()
+data = torch.rand((3, 8))
+my_model_2 = MyModel2()
 
-data: data.to(device)
-my_model_2: my_model_2.to(device)
+data = data.to(device)
+my_model_2 = my_model_2.to(device)
 
-result: my_model_2(data)
+result = my_model_2(data)
 
 print(result)
 

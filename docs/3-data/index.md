@@ -1,13 +1,13 @@
----
-date: '2025-08-17T11:12:00+03:30'
-draft: false
-title: 'Data'
-description: "Data in Pytorch"
-weight: 40
-tags: ["PyTorch", "Deep-Learning", "Python"]
-image: "data.webp"
-code: "https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/3_data.ipynb"
----
++++
+date = '2025-08-17T11:12:00+03:30'
+draft = false
+title = 'Data'
+description = "Data in Pytorch"
+weight = 40
+tags = ["PyTorch", "Deep-Learning", "Python"]
+image = "data.webp"
+code = "https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/3_data.ipynb"
++++
 
 # Data
 
@@ -23,7 +23,7 @@ you can use: `pip install scikit-learn`.
 ```python
 from sklearn.datasets import load_iris
 
-iris: load_iris()
+iris = load_iris()
 ```
 
 After we run the code above, it downloads the dataset, and all the data are in
@@ -96,7 +96,7 @@ As you can see, it has `150` samples.
 Let's show some of the samples using the code below:
 
 ```python
-chosen_indexes: np.linspace(0, len(iris.data), 10, dtype=int, endpoint=False)
+chosen_indexes = np.linspace(0, len(iris.data), 10, dtype=int, endpoint=False)
 print("Chosen indexes:")
 print(chosen_indexes)
 print()
@@ -146,8 +146,8 @@ So, our job is pretty much the same; we should only transform our dataset and ta
 To do so, we can use the code below:
 
 ```python
-data: torch.tensor(iris.data).to(torch.float)
-target: torch.tensor(iris.target)
+data = torch.tensor(iris.data).to(torch.float)
+target = torch.tensor(iris.target)
 ```
 
 Now, both the data and the target are in `Tensors`.
@@ -159,7 +159,7 @@ class IRISClassifier(nn.Module):
     def __init__(self):
         super().__init__()
 
-        self.layers: nn.Sequential(
+        self.layers = nn.Sequential(
             nn.Linear(4, 16),
             nn.Linear(16, 8),
             nn.Linear(8, 3),
@@ -181,7 +181,7 @@ As you can see, I have created a model, called `IRISClassifier`, that has:
 So, let's create an instance of that model and print it.
 
 ```python
-iris_classifier: IRISClassifier()
+iris_classifier = IRISClassifier()
 print(iris_classifier)
 
 """
@@ -201,7 +201,7 @@ IRISClassifier(
 Then, let's feed the chosen indices of our data to it.
 
 ```python
-logits: iris_classifier(data[chosen_indexes])
+logits = iris_classifier(data[chosen_indexes])
 print(logits)
 
 """
@@ -225,7 +225,7 @@ Now, we have an output.
 Let's compare it with the targets that we have.
 
 ```python
-predictions: logits.argmax(dim=1)
+predictions = logits.argmax(dim=1)
 for prediction, true_label in zip(predictions, target[chosen_indexes]):
     print(prediction.item(), true_label.item())
 
@@ -264,15 +264,15 @@ Let's make a `Dataset` class for our `IRIS` dataset.
 class IRISDataset(Dataset):
     def __init__(self, data, target):
         super().__init__()
-        self.data: data
-        self.target: target
+        self.data = data
+        self.target = target
 
     def __len__(self):
         return len(self.data)
 
     def __getitem__(self, idx):
-        data: torch.tensor(self.data[idx]).to(torch.float)
-        target: torch.tensor(self.target[idx])
+        data = torch.tensor(self.data[idx]).to(torch.float)
+        target = torch.tensor(self.target[idx])
         return data, target
 ```
 
@@ -287,9 +287,9 @@ This function is used when we want to iterate over our dataset.
 Let's load our data again and create an instance of our `IRISDataset`.
 
 ```python
-iris: load_iris()
+iris = load_iris()
 
-iris_dataset: IRISDataset(iris.data, iris.target)
+iris_dataset = IRISDataset(iris.data, iris.target)
 ```
 
 Now, if we want to iterate over our dataset, we can use a simple for.
@@ -321,7 +321,7 @@ Let's create a `DataLoader` for our `iris_dataset`.
 ```python
 from torch.utils.data import DataLoader
 
-iris_loader: DataLoader(iris_dataset, batch_size=10, shuffle=True)
+iris_loader = DataLoader(iris_dataset, batch_size=10, shuffle=True)
 ```
 
 In the code above, we created an instance of `DataLoader` and stored it in `iris_loader`.
@@ -375,8 +375,8 @@ To do so, we can use the code below:
 ```python
 from torch.utils.data import random_split
 
-g1: torch.Generator().manual_seed(20)
-train_data, val_data, test_data: random_split(iris_dataset, [0.7, 0.2, 0.1], g1)
+g1 = torch.Generator().manual_seed(20)
+train_data, val_data, test_data = random_split(iris_dataset, [0.7, 0.2, 0.1], g1)
 ```
 
 In the code above, at first, we create a `seed`.
@@ -404,9 +404,9 @@ As you can see, the data lengths are correct.
 Now, let's create a `DataLoader` for each of them.
 
 ```python
-train_loader: DataLoader(train_data, batch_size=10, shuffle=True)
-val_loader: DataLoader(val_data, batch_size=10, shuffle=False)
-test_loader: DataLoader(test_data, batch_size=10, shuffle=False)
+train_loader = DataLoader(train_data, batch_size=10, shuffle=True)
+val_loader = DataLoader(val_data, batch_size=10, shuffle=False)
+test_loader = DataLoader(test_data, batch_size=10, shuffle=False)
 ```
 
 As you can see, now we have 3 dataloaders for each subset.
@@ -414,9 +414,9 @@ Let's write a for loop to feed our training data to our model.
 
 ```python
 for batch_of_data, batch_of_target in train_loader:
-    logits: iris_classifier(batch_of_data)
+    logits = iris_classifier(batch_of_data)
 
-    predictions: logits.argmax(dim=1)
+    predictions = logits.argmax(dim=1)
     for prediction, true_label in zip(predictions, batch_of_target):
         print(prediction.item(), true_label.item())
     break

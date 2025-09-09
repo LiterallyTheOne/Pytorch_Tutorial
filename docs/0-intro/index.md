@@ -1,13 +1,13 @@
----
-date: '2025-08-12T11:49:00+03:30'
-draft: false
-title: 'Introduction'
-description: "Introduction to PyTorch"
-weight: 10
-tags: ["PyTorch", "Deep-Learning", "Python"]
-image: "introduction.webp"
-code: "https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/0_hello_world.ipynb"
----
++++
+date = '2025-08-12T11:49:00+03:30'
+draft = false
+title = 'Introduction'
+description = "Introduction to PyTorch"
+weight = 10
+tags = ["PyTorch", "Deep-Learning", "Python"]
+image = "introduction.webp"
+code = "https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/0_hello_world.ipynb"
++++
 
 # Introduction
 
@@ -50,7 +50,7 @@ Now, let's create random data:
 
 ```python
 # -------------------[ Data ]-------------------
-data: torch.rand((3, 8))  # (number_of_samples, features)
+data = torch.rand((3, 8))  # (number_of_samples, features)
 ```
 
 Now, we have random data that has 3 samples, and each sample has `8` features.
@@ -59,7 +59,7 @@ in the implementation section.
 
 ```python
 # -------------------[ Model ]-------------------
-model: nn.Linear(8, 4)  # (features, number_of_classes)
+model = nn.Linear(8, 4)  # (features, number_of_classes)
 ```
 
 The code above creates a fully connected neural network layer that
@@ -68,7 +68,7 @@ For the next step, let's feed that data to our model.
 
 ```python
 # -------------------[ Feed the data to the model ]-------------------
-logits: model(data)
+logits = model(data)
 print(logits)
 
 """
@@ -93,7 +93,7 @@ So, if we want to get the class that we want, we should just report the
 index of the maximum probability.
 
 ```python
-result: logits.argmax(1)
+result = logits.argmax(1)
 print(result)
 
 """

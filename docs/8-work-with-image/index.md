@@ -1,13 +1,13 @@
----
-date: '2025-08-28T08:45:00+03:30'
-draft: false
-title: 'Work with image'
-description: "Explaining how to work with images in PyTorch"
-weight: 90
-tags: ["PyTorch", "TorchVision", "Deep-Learning", "Python", "matplotlib", "Kaggle"]
-image: "work-with-image.webp"
-code: "https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/8_work_with_image.ipynb"
----
++++
+date = '2025-08-28T08:45:00+03:30'
+draft = false
+title = 'Work with image'
+description = "Explaining how to work with images in PyTorch"
+weight = 90
+tags = ["PyTorch", "TorchVision", "Deep-Learning", "Python", "matplotlib", "Kaggle"]
+image = "work-with-image.webp"
+code = "https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/8_work_with_image.ipynb"
++++
 
 # Work with Images
 
@@ -27,8 +27,8 @@ To do so, we can use the code below:
 ```python
 from torchvision.datasets import MNIST
 
-train_data: MNIST("data/", train=True, download=True)
-test_data: MNIST("data/", train=False, download=True)
+train_data = MNIST("data/", train=True, download=True)
+test_data = MNIST("data/", train=False, download=True)
 ```
 
 In the code above, we loaded `MNIST` in two subsets: `train` and `test`.
@@ -99,15 +99,15 @@ As you recall, in the previous tutorials, we had created a `Dataset` like below:
 class IRISDataset(Dataset):
     def __init__(self, data, target):
         super().__init__()
-        self.data: data
-        self.target: target
+        self.data = data
+        self.target = target
 
     def __len__(self):
         return len(self.data)
 
     def __getitem__(self, idx):
-        data: torch.tensor(self.data[idx]).to(torch.float)
-        target: torch.tensor(self.target[idx])
+        data = torch.tensor(self.data[idx]).to(torch.float)
+        target = torch.tensor(self.target[idx])
         return data, target
 ```
 
@@ -128,24 +128,24 @@ If we want to change our dataset to have these two arguments, we can do somethin
 class IRISDataset(Dataset):
     def __init__(self, data, target, transform=None, target_transform=None):
         super().__init__()
-        self.data: data
-        self.target: target
+        self.data = data
+        self.target = target
 
         if transform is None:
-            transform: lambda x: torch.tensor(x).to(torch.float)
+            transform = lambda x: torch.tensor(x).to(torch.float)
 
         if target_transform is None:
-            target_transform: lambda x: torch.tensor(x)
+            target_transform = lambda x: torch.tensor(x)
 
-        self.transform: transform
-        self.target_transform: target_transform
+        self.transform = transform
+        self.target_transform = target_transform
 
     def __len__(self):
         return len(self.data)
 
     def __getitem__(self, idx):
-        data: self.transform(self.data[idx])
-        target: self.target_transform(self.target[idx])
+        data = self.transform(self.data[idx])
+        target = self.target_transform(self.target[idx])
         return data, target
 ```
 
@@ -161,8 +161,8 @@ So, when we want to load our `MNIST`, we are going to add that as a transform.
 ```python
 from torchvision import transforms
 
-train_data: MNIST("data/", train=True, download=True, transform=transforms.ToTensor())
-test_data: MNIST("data/", train=False, download=True, transform=transforms.ToTensor())
+train_data = MNIST("data/", train=True, download=True, transform=transforms.ToTensor())
+test_data = MNIST("data/", train=False, download=True, transform=transforms.ToTensor())
 ```
 
 Now, let's see if it's applied or not.
@@ -187,7 +187,7 @@ For example, let's first resize each image to `[14, 14]` (our current size is `[
 Then, transform them into tensors.
 
 ```python
-transform_compose: transforms.Compose(
+transform_compose = transforms.Compose(
     [
         transforms.Resize([14, 14]),
         transforms.ToTensor()
@@ -203,8 +203,8 @@ for image, label in train_data:
     print(f"Before transform compose: {image.shape}")
     break
 
-train_data: MNIST("data/", train=True, download=True, transform=transform_compose)
-test_data: MNIST("data/", train=False, download=True, transform=transform_compose)
+train_data = MNIST("data/", train=True, download=True, transform=transform_compose)
+test_data = MNIST("data/", train=False, download=True, transform=transform_compose)
 
 # -------------------[ After transform compose ]-------------------
 for image, label in train_data:
@@ -229,8 +229,8 @@ Now, let's make a `validation subset` as well.
 One of the ways to do that is to split `test subset` into two subsets.
 
 ```python
-g1: torch.Generator().manual_seed(20)
-val_data, test_data: random_split(test_data, [0.7, 0.3], g1)
+g1 = torch.Generator().manual_seed(20)
+val_data, test_data = random_split(test_data, [0.7, 0.3], g1)
 
 print(f"val_data's size: {len(val_data)}")
 print(f"test_data's size: {len(test_data)}")
@@ -245,13 +245,13 @@ test_data's size: 3000
 ```
 
 In the code above, I have divided the `test_data` into `val_data` and `test_data`.
-So, `70%` of the `10000` ($10000 \times 70%: 7000$) goes for validation, and the rest goes for testing.
+So, `70%` of the `10000` ($10000 \times 70% = 7000$) goes for validation, and the rest goes for testing.
 Now, let's make data loaders from them.
 
 ```python
-train_loader: DataLoader(train_data, batch_size=64, shuffle=True)
-val_loader: DataLoader(val_data, batch_size=64, shuffle=False)
-test_loader: DataLoader(test_data, batch_size=64, shuffle=False)
+train_loader = DataLoader(train_data, batch_size=64, shuffle=True)
+val_loader = DataLoader(val_data, batch_size=64, shuffle=False)
+test_loader = DataLoader(test_data, batch_size=64, shuffle=False)
 ```
 
 As you can see, we now have all 3 `dataloaders` which we needed to train our model.
@@ -281,8 +281,8 @@ We can use the code below to do that:
 import kagglehub
 from pathlib import Path
 
-path: kagglehub.dataset_download("balabaskar/tom-and-jerry-image-classification")
-path: Path(path) / "tom_and_jerry/tom_and_jerry"
+path = kagglehub.dataset_download("balabaskar/tom-and-jerry-image-classification")
+path = Path(path) / "tom_and_jerry/tom_and_jerry"
 ```
 
 In the code above, I have downloaded the dataset using `kagglehub`, also I changed the path to the correct
@@ -314,9 +314,9 @@ As you can see, we have four classes:
 Let's load this dataset using `ImageFolder`.
 
 ```python
-tom_and_jerry_transforms: transforms.Compose([transforms.Resize([90, 160]), transforms.ToTensor()])
+tom_and_jerry_transforms = transforms.Compose([transforms.Resize([90, 160]), transforms.ToTensor()])
 
-all_data: ImageFolder(path, transform=tom_and_jerry_transforms)
+all_data = ImageFolder(path, transform=tom_and_jerry_transforms)
 ```
 
 In the code above, I have defined two transforms, one for resizing and one to transform each image into a tensor.
@@ -346,12 +346,12 @@ To change them back to images, I used a transform called: `ToPILImage()`.
 Now, let's split them and make dataloaders:
 
 ```python
-g1: torch.Generator().manual_seed(20)
-train_data, val_data, test_data: random_split(all_data, [0.7, 0.2, 0.1], g1)
+g1 = torch.Generator().manual_seed(20)
+train_data, val_data, test_data = random_split(all_data, [0.7, 0.2, 0.1], g1)
 
-train_loader: DataLoader(train_data, batch_size=16, shuffle=True)
-val_loader: DataLoader(val_data, batch_size=16, shuffle=False)
-test_loader: DataLoader(test_data, batch_size=16, shuffle=False)
+train_loader = DataLoader(train_data, batch_size=16, shuffle=True)
+val_loader = DataLoader(val_data, batch_size=16, shuffle=False)
+test_loader = DataLoader(test_data, batch_size=16, shuffle=False)
 ```
 
 And here you have it, we have our 3 dataloaders that we can work with.
