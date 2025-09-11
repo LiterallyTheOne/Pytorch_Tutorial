@@ -1,13 +1,13 @@
-+++
-date = '2025-08-28T08:45:00+03:30'
-draft = false
-title = 'Work with image'
-description = "Explaining how to work with images in PyTorch"
-weight = 90
-tags = ["PyTorch", "TorchVision", "Deep-Learning", "Python", "matplotlib", "Kaggle"]
-image = "work-with-image.webp"
-code = "https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/8_work_with_image.ipynb"
-+++
+---
+date: '2025-08-28T08:45:00+03:30'
+draft: false
+title: 'Work with image'
+description: "Explaining how to work with images in PyTorch"
+weight: 90
+tags: ["PyTorch", "TorchVision", "Deep-Learning", "Python", "matplotlib", "Kaggle"]
+image: "work-with-image.webp"
+code: "https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/8_work_with_image.ipynb"
+---
 
 # Work with Images
 

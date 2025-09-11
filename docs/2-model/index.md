@@ -1,13 +1,13 @@
-+++
-date = '2025-08-17T08:10:00+03:30'
-draft = false
-title = 'Model'
-description = "Model in Pytorch"
-weight = 30
-tags = ["PyTorch", "Deep-Learning", "Python"]
-image = "model.webp"
-code = "https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/2_model.ipynb"
-+++
+---
+date: '2025-08-17T08:10:00+03:30'
+draft: false
+title: 'Model'
+description: "Model in Pytorch"
+weight: 30
+tags: ["PyTorch", "Deep-Learning", "Python"]
+image: "model.webp"
+code: "https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/2_model.ipynb"
+---
 
 # Model
 

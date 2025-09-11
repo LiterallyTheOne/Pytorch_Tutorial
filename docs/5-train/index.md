@@ -1,13 +1,13 @@
-+++
-date = '2025-08-20T09:54:00+03:30'
-draft = false
-title = 'Train'
-description = "Training in PyTorch"
-weight = 60
-tags = ["PyTorch", "Deep-Learning", "Python"]
-image = "train.webp"
-code = "https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/2_model.ipynb"
-+++
+---
+date: '2025-08-20T09:54:00+03:30'
+draft: false
+title: 'Train'
+description: "Training in PyTorch"
+weight: 60
+tags: ["PyTorch", "Deep-Learning", "Python"]
+image: "train.webp"
+code: "https://github.com/LiterallyTheOne/Pytorch_Tutorial/blob/main/src/2_model.ipynb"
+---
 
 # Train
 
