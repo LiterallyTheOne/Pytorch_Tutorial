@@ -23,7 +23,7 @@ By LiterallyTheOne
 
 ## 0: Introduction
 
-![bg right:33% w:400](../docs/0-intro/introduction.webp)
+![bg right:33% w:400](../../docs/0-intro/introduction.webp)
 
 ---
 <!-- paginate: true -->
@@ -78,7 +78,7 @@ By LiterallyTheOne
 
 ## Fully Connected
 
-![image](../docs/0-intro/model-8-4.webp)
+![image](../../docs/0-intro/model-8-4.webp)
 
 ---
 
@@ -143,3 +143,9 @@ output:
 tensor([1, 1, 1])
 """
 ```
+
+---
+
+## Link to the Post and materials
+
+![w:400](0_intro.png)
