@@ -8,3 +8,5 @@ src/10_fine_tuning/runs
 
 src/9_convolution_relu/data
 src/data/
+
+.DS_Store
